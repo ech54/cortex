@@ -33,6 +33,7 @@
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.neo4j.test</groupId>
