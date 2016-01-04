@@ -1,0 +1,36 @@
+<div  ng-controller="tpCtrl">
+    <div>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>
+                    <div class="row"><b>Roles</b></div>
+                    <div class="row">
+                        <div class="col-sm-2"><b>Owner</b></div>
+                        <div class="col-sm-2"><b>Life ass. 1</b></div>
+                        <div class="col-sm-2"><b>Life ass. 2</b></div>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody  ng-repeat="tp in event.tps">
+            <tr>
+                <td>{{tp.id}}</td>
+                <td>{{tp.name}}</td>
+                <td></td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm-2"><input type="checkbox" /></div>
+                        <div class="col-sm-2"><input type="checkbox" /></div>
+                        <div class="col-sm-2"><input type="checkbox" /></div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
