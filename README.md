@@ -8,4 +8,4 @@ Modules description:
 - Provide operations to handle event (one of based concept to communicate between components). 
 
 ## Wf
-- Model handles the state of worklow and configuration.
+- Modul contains low level framework executing states of worklows and tooling to define and configure workflow activities.
