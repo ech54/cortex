@@ -11,8 +11,11 @@
   <groupId>lu.cortex</groupId>
   <artifactId>domains</artifactId>
   <packaging>pom</packaging>
+
   <modules>
+    <module>domains-commons</module>
     <module>policy-domain</module>
     <module>business-events-domain</module>
   </modules>
+
 </project>

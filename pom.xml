@@ -20,13 +20,7 @@
 
   <developers>
     <developer>
-      <name>Antoine Picone</name>
-    </developer>
-    <developer>
       <name>Emilien Charton</name>
-    </developer>
-    <developer>
-      <name>Sebastien Tieche</name>
     </developer>
     <developer>
       <name>Thomas Rollinger</name>
@@ -95,6 +89,11 @@
       <dependency>
         <groupId>lu.cortex</groupId>
         <artifactId>wf-engine-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>lu.cortex</groupId>
+        <artifactId>domains-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

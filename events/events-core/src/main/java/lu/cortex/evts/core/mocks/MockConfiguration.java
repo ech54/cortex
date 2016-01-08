@@ -1,7 +1,10 @@
 package lu.cortex.evts.core.mocks;
 
-public class MockConfiguration {
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-    public static final String COMPONENT_SCAN = "lu.cortex.evts.core.mocks";
+@Configuration
+@ComponentScan(basePackageClasses = MockConfiguration.class)
+public class MockConfiguration {
 
 }

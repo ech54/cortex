@@ -11,4 +11,11 @@
   <artifactId>business-events-domain</artifactId>
   <packaging>jar</packaging>
 
+  <dependencies>
+    <dependency>
+      <groupId>lu.cortex</groupId>
+      <artifactId>domains-commons</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>

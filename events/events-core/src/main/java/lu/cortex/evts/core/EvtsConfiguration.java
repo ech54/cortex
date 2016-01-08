@@ -13,6 +13,9 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+//TODO configure a redis solution.
+public class EvtsConfiguration {}
+/*
 @Configuration
 @ComponentScan({"lu.cortex.evts.core"})
 public class EvtsConfiguration {
@@ -41,20 +44,4 @@ public class EvtsConfiguration {
     ChannelTopic topic() {
         return new ChannelTopic("pubsub:queue"); // TODO to change.
     }
-
-    /*
-    @Bean
-    MessageListenerAdapter messageListener() {
-        return new MessageListenerAdapter( new RedisMessageListener() );
-    }
-
-
-    @Bean
-    RedisMessageListenerContainer redisContainer() {
-        final RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        container.setConnectionFactory( jedisConnectionFactory() );
-        container.addMessageListener( messageListener(), topic() );
-        return container;
-    }
-    */
-}
+} */

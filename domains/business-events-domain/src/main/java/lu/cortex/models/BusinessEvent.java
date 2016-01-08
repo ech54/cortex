@@ -12,6 +12,12 @@ package lu.cortex.models;
  * Created by echarton on 04/01/16.
  */
 public interface BusinessEvent {
+    /**
+     * Accessor in reading on the unique business reference
+     *  of the business event.
+     * @return The unique business reference.
+     */
+    String getIdentifier();
 
     /**
      * Accessor in reading on the policy unique identifier.
