@@ -11,6 +11,15 @@ public class EndpointDefault implements Endpoint {
     }
 
     @Override
+    public String toString() {
+        final StringBuffer buffer = new StringBuffer("endpoint={");
+        buffer.append(" alias:"+systemAlias);
+        buffer.append(", path:"+path);
+        buffer.append("}");
+        return buffer.toString();
+    }
+
+    @Override
     public String getSystemAlias() {
         return systemAlias;
     }

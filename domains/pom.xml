@@ -16,6 +16,7 @@
     <module>domains-commons</module>
     <module>policy-domain</module>
     <module>business-events-domain</module>
+    <module>domain-service-locator</module>
   </modules>
 
 </project>

@@ -1,7 +1,3 @@
-/**
- * Project: ESENTOOL
- * Contractor: ARHS-Developments
- */
 package lu.cortex.evts.core.mocks;
 
 /**

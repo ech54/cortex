@@ -1,7 +1,3 @@
-/**
- * Project: ESENTOOL
- * Contractor: ARHS-Developments
- */
 package lu.cortex.evts.core.mocks;
 
 import org.springframework.beans.factory.annotation.Autowired;

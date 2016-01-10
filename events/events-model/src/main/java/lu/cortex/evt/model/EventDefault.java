@@ -12,6 +12,16 @@ public class EventDefault implements Event {
     public EventDefault() {}
 
     @Override
+    public String toString() {
+        final StringBuffer buffer = new StringBuffer("event={");
+        buffer.append("(from):" + this.from+"->(to):" + this.to);
+        buffer.append(" , type:" + this.type);
+        buffer.append(" , body:" + this.body);
+        buffer.append("}");
+        return buffer.toString();
+    }
+
+    @Override
     public Endpoint getTo() {
         return to;
     }

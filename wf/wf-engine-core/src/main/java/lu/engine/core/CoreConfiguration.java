@@ -29,7 +29,7 @@ public class CoreConfiguration extends Neo4jConfiguration {
 
     @Override
     public Neo4jServer neo4jServer() {
-        return new RemoteServer("http://u:p@localhost:7474", "neo4j", "password");
+        return new RemoteServer("http://u:p@localhost:7474", "neo4j", "test");
     }
 
     @Override

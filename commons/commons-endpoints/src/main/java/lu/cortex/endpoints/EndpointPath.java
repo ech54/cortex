@@ -42,4 +42,14 @@ public enum EndpointPath {
         }
         return partOfPaths.get(partOfPath.getPosition());
     }
+
+    public static String buildPath(String domain) {
+        return domain;
+    }
+    public static String buildPath(String domain, String process) {
+        return domain + ":" + process;
+    }
+    public static String buildPath(String domain, String process, String ref) {
+        return domain + ":" + process + ":" + ref;
+    }
 }

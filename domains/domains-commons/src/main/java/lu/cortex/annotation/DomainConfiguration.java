@@ -1,7 +1,3 @@
-/**
- * Project: ESENTOOL
- * Contractor: ARHS-Developments
- */
 package lu.cortex.annotation;
 
 import java.lang.annotation.Documented;
@@ -10,11 +6,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD, ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface DomainName {
+public @interface DomainConfiguration {
 
-    String getName();
+    String name() default "";
 
+    String alias() default "";
 }

@@ -2,6 +2,8 @@ package lu.cortex.spi;
 
 import lu.cortex.endpoints.Endpoint;
 
+import java.util.List;
+
 /**
  * Minimal information to define a business service.
  *
@@ -20,4 +22,18 @@ public interface DomainDefinition {
      * @return The endpoint.
      */
     Endpoint getLocation();
+
+    /**
+     * Accessor in reading on the domain services.
+     * @return The domain services.
+     */
+    List<ServiceSpi> getServices();
+
+    /**
+     * Provide list of service by type.
+     * @param type The service type.
+     * @return All services associated with this type.
+     */
+    List<ServiceSpi> getServiceByType(final ServiceType type);
+
 }
