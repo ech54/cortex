@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/bower_components/ui-select/dist/select.min.css"/>
+    <link rel="stylesheet" href="/bower_components/angularjs-slider/dist/rzslider.min.css"/>
+    <link rel="stylesheet" href="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css"/>
+
+    <!-- Angular scripts -->
+    <script src="/bower_components/angular/angular.min.js"/>
+    <script src="/bower_components/angular-cookies/angular-cookies.min.js"/>
+    <script src="/bower_components/angular-translate/angular-translate.js"/>
+    <script src="/bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js"/>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"/>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"/>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"/>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"/>
+
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/controllers.js"></script>
+    <script type="text/javascript" src="/js/tpControllers.js"></script>
+
+    <style type="text/css">
+        .panel-height {
+            height: 400px;
+        }
+        .panel-heading{
+            height: 70px;
+        }
+        .panel-footer {
+            height: 70px;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body ng-app="container">
+
+    <div class="container container-warning" ng-controller="AppController">
+        <div class="page-header"><h1><b>todo</b></h1></div>
+        <form class="form-horizontal" role="form" >
+            <!--
+            <div class="panel panel-warning" ng-repeat="step in currentWorkflow.steps | filter: {display: true}" >
+                <div class="panel-heading"><h3><b>Step: {{step.name}}</b></h3></div>
+            </div>
+            -->
+        </form>
+    </div>
+</body>
+</html>

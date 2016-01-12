@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>domain-registry</artifactId>
-    <packaging>web</packaging>
+    <packaging>jar</packaging>
     <properties>
       <spring-boot.version>1.2.5.RELEASE</spring-boot.version>
     </properties>
@@ -20,7 +20,7 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
           <configuration>
-            <mainClass>lu.cortex.wf.container.ContainerConfiguration</mainClass>
+            <mainClass>lu.cortex.registry.container.ContainerConfiguration</mainClass>
           </configuration>
         </plugin>
       </plugins>

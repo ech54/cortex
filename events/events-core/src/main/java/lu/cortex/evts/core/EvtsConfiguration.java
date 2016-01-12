@@ -32,12 +32,12 @@ public class EvtsConfiguration {
 
     @Bean
     RedisTemplate< String, Object > redisTemplate() {
-        final RedisTemplate< String, Object > template =  new RedisTemplate< String, Object >();
-        template.setConnectionFactory(redisConnectionFactory());
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setHashValueSerializer( new GenericToStringSerializer<Object>( Object.class ) );
-        template.setValueSerializer( new GenericToStringSerializer< Object >( Object.class ) );
-        return template;
+        final RedisTemplate< String, Object > templates =  new RedisTemplate< String, Object >();
+        templates.setConnectionFactory(redisConnectionFactory());
+        templates.setKeySerializer(new StringRedisSerializer());
+        templates.setHashValueSerializer( new GenericToStringSerializer<Object>( Object.class ) );
+        templates.setValueSerializer( new GenericToStringSerializer< Object >( Object.class ) );
+        return templates;
     }
 
     @Bean
