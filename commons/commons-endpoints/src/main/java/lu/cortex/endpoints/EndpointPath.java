@@ -42,7 +42,7 @@ public enum EndpointPath {
         }
         return partOfPaths.get(partOfPath.getPosition());
     }
-
+    public static String toString(final Endpoint endpoint) { return endpoint.getSystemAlias() + ":" + endpoint.getPath();}
     public static String buildPath(String domain) {
         return domain;
     }

@@ -1,9 +1,8 @@
 
 package lu.cortex.configuration;
 
-import lu.cortex.endpoints.Endpoint;
+import lu.cortex.async.DomainListener;
 import lu.cortex.endpoints.EndpointDefault;
-import lu.cortex.evt.model.Event;
 import lu.cortex.evt.model.EventBuilder;
 import lu.cortex.evt.model.EventType;
 import org.junit.Test;
@@ -27,21 +26,17 @@ public class DomainConfigurerExporterTest {
     private Logger logger = LoggerFactory.getLogger(DomainConfigurerExporterTest.class);
 
     @Autowired
-    DomainConfigurationExporter exporter;
+    DomainDefinitionExporter exporter;
 
     @Configuration
     @ComponentScan(basePackageClasses = {
             //DomainConfigurerExporterTest.class,
-            DomainConfigurationExporter.class})
+            DomainDefinitionExporter.class})
     public static class TestingConf {
 
         @Bean
         public String simpleString() { return "simple string injected"; }
 
-        @Bean
-        public DomainConfigurationExporter exporter() {
-            return new DomainConfigurationExporter();
-        }
     }
 
     @Test

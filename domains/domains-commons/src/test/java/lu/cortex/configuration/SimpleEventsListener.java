@@ -3,7 +3,7 @@ package lu.cortex.configuration;
 import lu.cortex.annotation.AsyncProcessName;
 import lu.cortex.annotation.OnMessage;
 import lu.cortex.evt.model.Event;
-import lu.cortex.evts.core.EventsListener;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

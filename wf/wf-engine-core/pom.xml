@@ -13,6 +13,10 @@
   <dependencies>
     <dependency>
       <groupId>lu.cortex</groupId>
+      <artifactId>domains-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>lu.cortex</groupId>
       <artifactId>wf-model</artifactId>
     </dependency>
     <dependency>

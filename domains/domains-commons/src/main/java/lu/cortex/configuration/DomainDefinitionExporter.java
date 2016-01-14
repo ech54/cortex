@@ -20,14 +20,11 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import com.sun.xml.internal.ws.addressing.EndpointReferenceUtil;
 
-/**
- * <class_description>
- */
 @Component
-public class DomainConfigurationExporter implements InitializingBean, BeanFactoryAware {
+public class DomainDefinitionExporter implements InitializingBean, BeanFactoryAware {
 
     private Map<String, Object> domain = new ConcurrentHashMap<>();
     private Map<String, MethodInvokingFactoryBean> processes = new ConcurrentHashMap<>();
@@ -62,8 +59,12 @@ public class DomainConfigurationExporter implements InitializingBean, BeanFactor
         return new ArrayList<>();
     }
 
-    public Object executeProcess(final String name, Object...args) {
-        MethodInvokingFactoryBean factory = getAsyncProcesses().get(name);
+    public Object executeAsyncProcess(final Endpoint endpoint, Object...args) {
+        Optional<MethodInvokingFactoryBean> optional = getAsyncProcesses(endpoint);
+        if (!optional.isPresent()) {
+            throw new RuntimeException("No async process for expected endpoint: " + endpoint);
+        }
+        final MethodInvokingFactoryBean factory = optional.get();
         factory.setArguments(null);
         try {
             factory.setArguments(args);
@@ -144,6 +145,12 @@ public class DomainConfigurationExporter implements InitializingBean, BeanFactor
         };
     }
 
+    protected Optional<MethodInvokingFactoryBean> getAsyncProcesses(final Endpoint endpoint) {
+        if (getAsyncProcesses().containsKey(EndpointPath.toString(endpoint))) {
+            return Optional.of(getAsyncProcesses().get(EndpointPath.toString(endpoint)));
+        }
+        return Optional.empty();
+    }
 
     public String getDomainName() {
         if (domain.isEmpty()) {

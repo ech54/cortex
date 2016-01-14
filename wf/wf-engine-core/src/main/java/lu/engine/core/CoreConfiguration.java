@@ -5,6 +5,7 @@ import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.neo4j.config.Neo4jConfiguration;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.server.Neo4jServer;
@@ -14,6 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 
+import lu.cortex.configuration.DomainCommonConfiguration;
+
+@Import(DomainCommonConfiguration.class)
 @Configuration
 @ComponentScan({"lu.engine.core"})
 @EnableTransactionManagement
@@ -28,10 +32,8 @@ public class CoreConfiguration extends Neo4jConfiguration {
     }
 
     @Override
-    public Neo4jServer neo4jServer() {
-        return new RemoteServer("http://u:p@localhost:7474", "neo4j", "test");
-    }
-
+    public Neo4jServer neo4jServer() { return new RemoteServer("http://u:p@localhost:7474", "neo4j", "password"); }
+    //public Neo4jServer neo4jServer() {return new RemoteServer("http://u:p@localhost:7474", "neo4j", "test");}
     @Override
     public SessionFactory getSessionFactory() {
         return new SessionFactory("lu.engine.core.model");
