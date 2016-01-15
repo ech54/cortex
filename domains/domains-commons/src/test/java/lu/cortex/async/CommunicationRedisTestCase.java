@@ -47,7 +47,7 @@ public class CommunicationRedisTestCase {
             ObjectMapper mapper = new ObjectMapper();
             final Event event = EventBuilder
                     .from(new EndpointDefault("test", "test:junit"))
-                    .to("mock", "mock:listener")
+                    .to("policy-services", "register")
                     .withType(EventType.INFO)
                     .withPayload("'hello':'world'")
                     .build();
@@ -56,8 +56,25 @@ public class CommunicationRedisTestCase {
             System.out.println(jsonInString);
             template.convertAndSend("policy", jsonInString);
 
-            Thread.sleep(500 * 1000);
+            Thread.sleep(50 * 1000);
         }
+
+    @Test
+    public void callAsyncProcessUpdate() throws JsonProcessingException, InterruptedException {
+        ObjectMapper mapper = new ObjectMapper();
+        final Event event = EventBuilder
+                .from(new EndpointDefault("test", "test:junit"))
+                .to("policy-services", "register:update")
+                .withType(EventType.INFO)
+                .withPayload("'hello':'world'")
+                .build();
+        //Object to JSON in String
+        String jsonInString = mapper.writeValueAsString(event);
+        System.out.println(jsonInString);
+        template.convertAndSend("policy", jsonInString);
+
+        Thread.sleep(50 * 1000);
+    }
 
 
 }

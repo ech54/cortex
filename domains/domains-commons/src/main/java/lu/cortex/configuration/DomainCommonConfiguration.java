@@ -23,6 +23,7 @@ public class DomainCommonConfiguration {
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         final JedisConnectionFactory factory = new JedisConnectionFactory();
+        factory.setHostName("172.17.0.2");
         return factory;
     }
 

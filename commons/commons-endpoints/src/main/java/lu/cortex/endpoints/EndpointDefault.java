@@ -1,11 +1,21 @@
 package lu.cortex.endpoints;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+@JsonRootName("endpoint")
 public class EndpointDefault implements Endpoint {
 
+    @JsonProperty("alias")
     private String systemAlias;
+
+    @JsonProperty("path")
     private String path;
 
-    public EndpointDefault(final String alias, final String path) {
+    @JsonCreator
+    public EndpointDefault(@JsonProperty("alias") final String alias,
+                           @JsonProperty("path") final String path) {
         this.systemAlias = alias;
         this.path = path;
     }

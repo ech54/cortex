@@ -1,13 +1,21 @@
 package lu.cortex.evt.model;
 
-import lu.cortex.endpoints.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import lu.cortex.endpoints.Endpoint;
+import lu.cortex.endpoints.EndpointDefault;
 
+@JsonRootName("event")
 public class EventDefault implements Event {
 
-    Endpoint to;
-    Endpoint from;
+    @JsonProperty
+    EndpointDefault to;
+    @JsonProperty
+    EndpointDefault from;
+    @JsonProperty
     EventType type;
-    EventBody body;
+    @JsonProperty
+    EventBodyDefault body;
 
     public EventDefault() {}
 
@@ -22,21 +30,21 @@ public class EventDefault implements Event {
     }
 
     @Override
-    public Endpoint getTo() {
+    public EndpointDefault getTo() {
         return to;
     }
 
-    public void setTo(Endpoint to) {
-        this.to = to;
+    public void setTo(EndpointDefault to) {
+        this.to = (EndpointDefault) to;
     }
 
     @Override
-    public Endpoint getFrom() {
+    public EndpointDefault getFrom() {
         return from;
     }
 
-    public void setFrom(Endpoint from) {
-        this.from = from;
+    public void setFrom(EndpointDefault from) {
+        this.from = (EndpointDefault) from;
     }
 
     @Override
@@ -49,11 +57,11 @@ public class EventDefault implements Event {
     }
 
     @Override
-    public EventBody getBody() {
+    public EventBodyDefault getBody() {
         return body;
     }
 
-    public void setBody(EventBody body) {
+    public void setBody(EventBodyDefault body) {
         this.body = body;
     }
 }

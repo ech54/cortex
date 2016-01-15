@@ -13,7 +13,7 @@ public class EventBuilder {
 
     public static EventBuilder from(final Endpoint from) {
         final EventBuilder builder = new EventBuilder();
-        builder.event.setFrom(from);
+        builder.event.setFrom((EndpointDefault) from);
         return builder;
     }
     public EventBuilder from(final String system, final String path) {
@@ -23,7 +23,7 @@ public class EventBuilder {
 
     public static EventBuilder to(final Endpoint to) {
         final EventBuilder builder = new EventBuilder();
-        builder.event.setTo(to);
+        builder.event.setTo((EndpointDefault) to);
         return builder;
     }
 

@@ -88,11 +88,12 @@ public class DomainDefinitionExporter implements InitializingBean, BeanFactoryAw
                 .filter(m -> m.isAnnotationPresent(rT))
                 .forEach(m -> {
                     final MethodInvokingFactoryBean mBean = createFactory(entry);
+                    final Annotation resultAnnotation = m.getAnnotation(rT);
                     mBean.setTargetObject(entry.getValue());
                     mBean.setTargetMethod(m.getName());
                     result.put(EndpointPath.buildPath(domain,
                                 getName(processAnnotation),
-                                m.getName()),
+                                getName(resultAnnotation)),
                             mBean);
                     serviceSpi.addReference(m.getName());
                 });

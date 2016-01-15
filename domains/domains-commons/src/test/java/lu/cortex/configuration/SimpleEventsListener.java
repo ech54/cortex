@@ -28,5 +28,13 @@ public class SimpleEventsListener{
         logger.info("received new event= " + event);
     }
 
+    @OnMessage(name="update")
+    public void update(Event event) {
+        logger.info("verified that listener is properly configured by spring: /r"
+                + ">>>injected value: " + simpleString + "/r");
+        logger.info("received update event= " + event);
+    }
+
+
     public static void received(Event event) {logger.info("received new event= " + event);}
 }

@@ -50,6 +50,6 @@ public enum EndpointPath {
         return domain + ":" + process;
     }
     public static String buildPath(String domain, String process, String ref) {
-        return domain + ":" + process + ":" + ref;
+        return domain + ":" + process + (StringUtils.isNoneEmpty(ref) ? ":" + ref : "");
     }
 }
