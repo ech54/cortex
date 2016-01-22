@@ -33,6 +33,7 @@ public interface DomainDefinition {
      * Provide list of service by type.
      * @param type The service type.
      * @return All services associated with this type.
+     * @deprecated (used DomainDefinition.getServices)
      */
     List<ServiceSpi> getServiceByType(final ServiceType type);
 

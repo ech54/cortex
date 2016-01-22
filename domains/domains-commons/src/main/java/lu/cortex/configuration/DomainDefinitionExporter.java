@@ -23,12 +23,20 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 import com.sun.xml.internal.ws.addressing.EndpointReferenceUtil;
 
+/**
+ * Component loads initially the domain at start-up. In using spring property,
+ *  all business configurations (@see DomainConfiguration, AsyncProcessName, etc..)
+ */
 @Component
 public class DomainDefinitionExporter implements InitializingBean, BeanFactoryAware {
 
+    // Reference on the domain configuration.
     private Map<String, Object> domain = new ConcurrentHashMap<>();
+
     private Map<String, MethodInvokingFactoryBean> processes = new ConcurrentHashMap<>();
+
     protected List<ServiceSpi> services = new ArrayList<>();
+
     private Map<String, MethodInvokingFactoryBean> asyncProcesses = new ConcurrentHashMap<>();
 
     private ListableBeanFactory beanFactory;

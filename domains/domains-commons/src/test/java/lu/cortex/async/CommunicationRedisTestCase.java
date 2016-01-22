@@ -71,7 +71,7 @@ public class CommunicationRedisTestCase {
         //Object to JSON in String
         String jsonInString = mapper.writeValueAsString(event);
         System.out.println(jsonInString);
-        template.convertAndSend("policy", jsonInString);
+        template.convertAndSend("policy-2", jsonInString);
 
         Thread.sleep(50 * 1000);
     }

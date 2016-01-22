@@ -23,7 +23,9 @@ public class DomainCommonConfiguration {
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         final JedisConnectionFactory factory = new JedisConnectionFactory();
-        factory.setHostName("172.17.0.2");
+        //factory.setHostName("172.17.0.2");
+        factory.setDatabase(0);
+        factory.setHostName("localhost");
         return factory;
     }
 
@@ -48,7 +50,4 @@ public class DomainCommonConfiguration {
     MessageListenerAdapter listenerAdapter(DomainListener listener) {
         return new MessageListenerAdapter(listener, "receiveMessage");
     }
-
-
-
 }

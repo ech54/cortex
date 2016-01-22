@@ -2,7 +2,7 @@ package lu.cortex.evt.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import lu.cortex.endpoints.Endpoint;
+
 import lu.cortex.endpoints.EndpointDefault;
 
 @JsonRootName("event")
@@ -13,8 +13,6 @@ public class EventDefault implements Event {
     @JsonProperty
     EndpointDefault from;
     @JsonProperty
-    EventType type;
-    @JsonProperty
     EventBodyDefault body;
 
     public EventDefault() {}
@@ -23,37 +21,27 @@ public class EventDefault implements Event {
     public String toString() {
         final StringBuffer buffer = new StringBuffer("event={");
         buffer.append("(from):" + this.from+"->(to):" + this.to);
-        buffer.append(" , type:" + this.type);
         buffer.append(" , body:" + this.body);
         buffer.append("}");
         return buffer.toString();
     }
 
     @Override
-    public EndpointDefault getTo() {
+    public EndpointDefault getOrigin() {
         return to;
     }
 
-    public void setTo(EndpointDefault to) {
+    public void setOrigin(EndpointDefault to) {
         this.to = (EndpointDefault) to;
     }
 
     @Override
-    public EndpointDefault getFrom() {
+    public EndpointDefault getDestination() {
         return from;
     }
 
-    public void setFrom(EndpointDefault from) {
+    public void setDestination(EndpointDefault from) {
         this.from = (EndpointDefault) from;
-    }
-
-    @Override
-    public EventType getType() {
-        return type;
-    }
-
-    public void setType(EventType type) {
-        this.type = type;
     }
 
     @Override

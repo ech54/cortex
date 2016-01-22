@@ -28,6 +28,10 @@
 
     <dependencies>
       <dependency>
+        <groupId>lu.cortex</groupId>
+        <artifactId>domains-commons</artifactId>
+      </dependency>
+      <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
         <version>2.6</version>
@@ -62,6 +66,11 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-thymeleaf</artifactId>
         <version>${spring-boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <scope>test</scope>
       </dependency>
     </dependencies>
 

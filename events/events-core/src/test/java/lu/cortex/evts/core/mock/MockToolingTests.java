@@ -47,8 +47,8 @@ public class MockToolingTests {
         final Event last = listener.last();
         assertTrue(listener.isEmpty());
         assertNotNull(last);
-        assertEquals("test:junit", last.getFrom().getPath());
-        assertEquals("mock:listener", last.getTo().getPath());
+        assertEquals("test:junit", last.getDestination().getPath());
+        assertEquals("mock:listener", last.getOrigin().getPath());
     }
 
 }

@@ -38,13 +38,13 @@ public class EngineService {
     }
 
     public void createProcess(final Event event) {
-        final String domain = EndpointPath.getDomain(event.getTo().getPath());
-        final String process = EndpointPath.getProcess(event.getTo().getPath());
+        final String domain = EndpointPath.getDomain(event.getOrigin().getPath());
+        final String process = EndpointPath.getProcess(event.getOrigin().getPath());
         final List<ProcessStepDefinition> definitions = processStepDefinitionRepository.findByProcess(domain, process);
         if (definitions == null || definitions.isEmpty()) {
             eventsSender.sendEvent(EventBuilder
                     .from(application).withType(EventType.INFO)
-                    .to(event.getFrom().getSystemAlias(), event.getFrom().getPath())
+                    .to(event.getDestination().getSystemAlias(), event.getDestination().getPath())
                     .withPayload(String.format("{'msg': 'process definition not existing.'}"))
                     .build());
         }
@@ -55,30 +55,30 @@ public class EngineService {
                 step.getProcessId();
         eventsSender.sendEvent(EventBuilder
                 .from(application).withType(EventType.UPDATE)
-                .to(event.getFrom().getSystemAlias(), event.getFrom().getPath())
+                .to(event.getDestination().getSystemAlias(), event.getDestination().getPath())
                 .withPayload(String.format("{'ref': %s}", ref))
                 .build());
     }
 
     public void getProcessStep(final Event event) {
-        final String domain = EndpointPath.getDomain(event.getTo().getPath());
-        final String process = EndpointPath.getProcess(event.getTo().getPath());
-        final String ref = EndpointPath.getRef(event.getTo().getPath());
+        final String domain = EndpointPath.getDomain(event.getOrigin().getPath());
+        final String process = EndpointPath.getProcess(event.getOrigin().getPath());
+        final String ref = EndpointPath.getRef(event.getOrigin().getPath());
         final ProcessStep current = processStepRepository.findUniqueStep(domain, process, ref);
         current.setActivities(new HashSet<>());
         current.getActivities().add(processStepRepository.nextStep(current.getId()));
     }
 
     public void updateProcessStep(final Event event) {
-        final String domain = EndpointPath.getDomain(event.getTo().getPath());
-        final String process = EndpointPath.getProcess(event.getTo().getPath());
-        final String ref = EndpointPath.getRef(event.getTo().getPath());
+        final String domain = EndpointPath.getDomain(event.getOrigin().getPath());
+        final String process = EndpointPath.getProcess(event.getOrigin().getPath());
+        final String ref = EndpointPath.getRef(event.getOrigin().getPath());
         final StepStatus status = extractStatus(event);
         final ProcessStep current = processStepRepository.findUniqueStep(domain, process, ref);
         updateWithStatus(current, status);
         eventsSender.sendEvent(EventBuilder
                 .from(application).withType(EventType.UPDATE)
-                .to(event.getFrom().getSystemAlias(), event.getFrom().getPath())
+                .to(event.getDestination().getSystemAlias(), event.getDestination().getPath())
                 .withPayload(toJson(current))
                 .build());
     }
