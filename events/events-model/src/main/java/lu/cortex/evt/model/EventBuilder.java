@@ -32,8 +32,9 @@ public class EventBuilder {
         return this;
     }
 
+    @Deprecated
     public EventBuilder withType(final EventType type) {
-        ((EventDefault) event).setType(type);
+        //((EventDefault) event).setType(type);
         return this;
     }
 

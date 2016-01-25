@@ -11,23 +11,44 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * Default cache implementation to handle LRU access.
+ * @param <K> The key.
+ * @param <V> The value.
+ */
 public class LRUinMemoryCache<K, V> {
 
-    private long evictionTime = 0l;
-    private long timeToLive = 0l;
-    private long maxItems = 0l;
+    private static final Logger LOGGER = LoggerFactory.getLogger(LRUinMemoryCache.class);
+
+    // Time in millisecond before to evict the check cached object to evict.
+    private long evictionTime = 1000l; // By default 1 second.
+
+    // Time to live of cached object in millisecond.
+    private long timeToLive = 60000l; // By default 1 minute.
+
+    // The max number of items.
+    private long maxItems = 10000l; // By default 10 000 items.
+
+    // The cached object.
     private final Map<K, LRUInMemoryObject<V>> cache = new ConcurrentHashMap<>();
 
     private Lock lock = new ReentrantLock();
 
-    public LRUinMemoryCache(final long timeToLive, final long maxItems) {
+    public LRUinMemoryCache(final long timeToLive, final long maxItems, final long evictionTime) {
         this.timeToLive = timeToLive;
         this.maxItems = maxItems;
+        this.evictionTime = evictionTime;
         this.checkRegistry();
     }
 
-
+    /**
+     * Object wrapper allows to flag the birth instance
+     *  of the cached object.
+     * @param <V> The type of object.
+     */
     class LRUInMemoryObject<V> {
 
         private final Instant birth = Instant.now();
@@ -46,45 +67,84 @@ public class LRUinMemoryCache<K, V> {
         }
     }
 
+    /**
+     * Retrieve the value based on its key pair.
+     * @param key The key pair.
+     * @return The corresponding value.
+     */
     public V get(final K key) {
-        return (V) synchronize(new Operation() {
-            @Override
-            public Object execute() {
-                return cache.get(key).getValue();
-            }
-        });
+        try {
+            lock.lock();
+            return cache.get(key).getValue();
+        }
+        finally{
+            lock.unlock();
+        }
     }
 
+    /**
+     * Method provides the size of current cache system.
+     * @return The size.
+     */
+    public int size() {
+        try {
+            lock.lock();
+            return cache.size();
+        } finally{
+            lock.unlock();
+        }
+    }
+
+    /**
+     * Indicates if the key is known of the cache.
+     * @param key The key.
+     * @return <code>true</code> if key is existing,
+     *  <code>false</code>.
+     */
+    public boolean isExist(K key) {
+        try {
+            lock.lock();
+            return Boolean.valueOf(cache.containsKey(key));
+        }
+        finally{
+            lock.unlock();
+        }
+    }
+
+    /**
+     * Put a key, value pair in the cache system.
+     * @param key The key.
+     * @param value The value.
+     */
     public void put(final K key, V value) {
-        synchronize(new Operation() {
-            @Override
-            public Object execute() {
-                return cache.put(key, new LRUInMemoryObject<>(value));
-            }
-        });
+        try {
+            lock.lock();
+            cache.put(key, new LRUInMemoryObject<>(value));
+        }
+        finally{
+            lock.unlock();
+        }
     }
 
+    /**
+     * Remove from the cache system the given key.
+     * @param key The key.
+     */
     public void remove(final K key) {
-        synchronize(new Operation() {
-            @Override
-            public Object execute() {
-                return cache.remove(key);
-            }
-        });
+        try {
+            lock.lock();
+            cache.remove(key);
+        }
+        finally{
+            lock.unlock();
+        }
     }
 
     protected void checkRegistry() {
         final ExecutorService pool = Executors.newFixedThreadPool(1);
         registerForShutdown(pool);
-        Callable<Boolean> cleanUpTask = () -> cleanUp();
-        try {
-            while(true) {
-                pool.submit(cleanUpTask);
-                Thread.sleep(evictionTime);
-            }
-        } catch(final Exception e) {
-            throw new RuntimeException(e);
-        }
+        final Callable<Boolean> cleanUpTask = () -> cleanUp();
+        pool.submit(cleanUpTask);
     }
 
     protected void registerForShutdown(final ExecutorService pool) {
@@ -97,35 +157,52 @@ public class LRUinMemoryCache<K, V> {
         });
     }
 
-    public Boolean cleanUp() {
+    /**
+     * Allow to clean the cache. This method is called internally
+     *  by an threading task.
+     * @return
+     */
+    public boolean cleanUpCache() {
         try {
             lock.lock();
-            final Instant today = Instant.now();
-            final List<K> oldestObjects = this.cache.entrySet().stream()
-                    .filter(e -> (today.getLong(ChronoField.MILLI_OF_SECOND) - e.getValue().birth.getLong(ChronoField.MILLI_OF_SECOND) == timeToLive))
-                    .map(e -> e.getKey())
-                    .collect(Collectors.toList());
+            overflowCache();
+            evictCache();
+            return true;
+        } catch(final Exception e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            lock.unlock();
+        }
+    }
+
+    private boolean cleanUp() {
+        try {
+            while(true) {
+                cleanUpCache();
+                Thread.sleep(evictionTime);
+            }
+        } catch(final Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void overflowCache() {
+        if (this.cache.size()<= this.maxItems) {
+            return;
+        }
+        this.cache.clear();
+    }
+
+    private void evictCache() {
+        final List<K> oldestObjects = this.cache.entrySet().stream()
+                .filter(e -> ((Instant.now().toEpochMilli() - e.getValue().birth.toEpochMilli()) >= timeToLive))
+                .map(e -> e.getKey())
+                .collect(Collectors.toList());
+        if (oldestObjects.size()>0) {
+            oldestObjects.stream().map(k -> "key to remove: "+k).forEach(LOGGER::info);
             oldestObjects.stream().forEach(k -> this.remove(k));
-        } finally {
-            lock.unlock();
-        }
-        return true;
-    }
-
-    protected Object synchronize(final Operation operation) {
-        try {
-            lock.lock();
-            return operation.execute();
-        }
-        finally{
-            lock.unlock();
         }
     }
 
-    interface Operation {
-
-
-        Object execute();
-
-    }
 }
