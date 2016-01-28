@@ -21,10 +21,9 @@ public class EventBuilder {
         return this;
     }
 
-    public static EventBuilder to(final Endpoint to) {
-        final EventBuilder builder = new EventBuilder();
-        builder.event.setDestination((EndpointDefault) to);
-        return builder;
+    public  EventBuilder to(final Endpoint to) {
+        this.event.setDestination((EndpointDefault) to);
+        return this;
     }
 
     public EventBuilder to(final String system, final String path) {

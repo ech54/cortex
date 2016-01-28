@@ -45,6 +45,8 @@ public class DomainDefinitionManagerDefault implements InitializingBean, BeanFac
 
     private ListableBeanFactory beanFactory;
 
+    private Endpoint origin;
+
     @Autowired
     private DomainSender domainSender;
 
@@ -59,6 +61,7 @@ public class DomainDefinitionManagerDefault implements InitializingBean, BeanFac
         this.processes.putAll(this.reader.extractProcess(this.beanFactory.getBeansWithAnnotation(ProcessName.class), domainName));
         this.asyncProcesses.putAll(this.reader.extractAsyncProcess(this.beanFactory.getBeansWithAnnotation(AsyncProcessName.class), domainName));
         services.addAll(this.reader.extractServiceSpi(this.processes, this.asyncProcesses));
+        origin = new EndpointDefault(getAlias(), getDomainName());
         exportDomainDefinition();
     }
 
@@ -111,7 +114,7 @@ public class DomainDefinitionManagerDefault implements InitializingBean, BeanFac
 
             @Override
             public Endpoint getLocation() {
-                return new EndpointDefault(getAlias(), getName());
+                return origin;
             }
 
             @Override

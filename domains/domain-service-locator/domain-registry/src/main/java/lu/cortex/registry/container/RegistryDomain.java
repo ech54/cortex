@@ -3,6 +3,6 @@ package lu.cortex.registry.container;
 
 import lu.cortex.annotation.DomainConfiguration;
 
-@DomainConfiguration(name="registry-domain", alias = "registry")
+@DomainConfiguration(name="registry", alias = "registry-domain")
 public class RegistryDomain {
 }
