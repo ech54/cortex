@@ -465,7 +465,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
    *   The map object is:
    *   
    *   - key - {string}: name of dependency to be injected into controller
-   *   - factory - {string|function}: If string then it is alias for service. Otherwise if function, 
+   *   - factory - {string|function}: If string then it is alias for lu.cortex.registry.container.cache. Otherwise if function,
    *     it is injected and return value it treated as dependency. If result is a promise, it is 
    *     resolved before its value is injected into controller.
    *
@@ -480,7 +480,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
    * <a id='url'></a>
    *
    *   A url fragment with optional parameters. When a state is navigated or
-   *   transitioned to, the `$stateParams` service will be populated with any 
+   *   transitioned to, the `$stateParams` lu.cortex.registry.container.cache will be populated with any
    *   parameters that were passed.
    *
    *   (See {@link ui.router.util.type:UrlMatcher UrlMatcher} `UrlMatcher`} for

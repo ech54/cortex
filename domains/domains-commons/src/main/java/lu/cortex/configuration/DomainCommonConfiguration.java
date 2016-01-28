@@ -14,11 +14,11 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import lu.cortex.async.DomainListener;
 
 @Configuration
-@ComponentScan(basePackageClasses = {DomainListener.class})
+@ComponentScan(basePackageClasses = {DomainCommonConfiguration.class, DomainListener.class})
 public class DomainCommonConfiguration {
 
     @Autowired
-    private DomainDefinitionExporter domainConfigurationExporter;
+    private DomainDefinitionManagerDefault domainConfigurationExporter;
 
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {

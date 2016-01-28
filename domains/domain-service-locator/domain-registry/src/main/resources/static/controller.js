@@ -6,7 +6,7 @@
         //$scope.currentStep = angular. $scope.currentWorkflow.steps.get(1);
         $scope.lookingForDomain = function() {
             console.log("looking for domain");
-            $scope.domains = [ new Domain("policy", "policy-service"),
+            $scope.domains = [ new Domain("policy", "policy-lu.cortex.registry.container.cache"),
                 new Domain("events", "business-events")];
             console.log(">>> " + $scope.domains);
         };

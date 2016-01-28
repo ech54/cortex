@@ -1710,7 +1710,7 @@ function reloadWithDebugInfo() {
  * @name angular.getTestability
  * @module ng
  * @description
- * Get the testability service for the instance of Angular on the given
+ * Get the testability lu.cortex.registry.container.cache for the instance of Angular on the given
  * element.
  * @param {DOMElement} element DOM element which is the root of angular application.
  */
@@ -1943,7 +1943,7 @@ function setupModuleLoader(window) {
      * // Create a new module
      * var myModule = angular.module('myModule', []);
      *
-     * // register a new service
+     * // register a new lu.cortex.registry.container.cache
      * myModule.value('appName', 'MyCoolApp');
      *
      * // configure existing services inside initialization blocks.
@@ -2032,9 +2032,9 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#provider
            * @module ng
-           * @param {string} name service name
+           * @param {string} name lu.cortex.registry.container.cache name
            * @param {Function} providerType Construction function for creating new instance of the
-           *                                service.
+           *                                lu.cortex.registry.container.cache.
            * @description
            * See {@link auto.$provide#provider $provide.provider()}.
            */
@@ -2044,8 +2044,8 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#factory
            * @module ng
-           * @param {string} name service name
-           * @param {Function} providerFunction Function for creating new instance of the service.
+           * @param {string} name lu.cortex.registry.container.cache name
+           * @param {Function} providerFunction Function for creating new instance of the lu.cortex.registry.container.cache.
            * @description
            * See {@link auto.$provide#factory $provide.factory()}.
            */
@@ -2055,10 +2055,10 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#service
            * @module ng
-           * @param {string} name service name
+           * @param {string} name lu.cortex.registry.container.cache name
            * @param {Function} constructor A constructor function that will be instantiated.
            * @description
-           * See {@link auto.$provide#service $provide.service()}.
+           * See {@link auto.$provide#service $provide.lu.cortex.registry.container.cache()}.
            */
           service: invokeLaterAndSetModuleName('$provide', 'service'),
 
@@ -2066,7 +2066,7 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#value
            * @module ng
-           * @param {string} name service name
+           * @param {string} name lu.cortex.registry.container.cache name
            * @param {*} object Service instance object.
            * @description
            * See {@link auto.$provide#value $provide.value()}.
@@ -2089,9 +2089,9 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#decorator
            * @module ng
-           * @param {string} The name of the service to decorate.
-           * @param {Function} This function will be invoked when the service needs to be
-           *                                    instantiated and should return the decorated service instance.
+           * @param {string} The name of the lu.cortex.registry.container.cache to decorate.
+           * @param {Function} This function will be invoked when the lu.cortex.registry.container.cache needs to be
+           *                                    instantiated and should return the decorated lu.cortex.registry.container.cache instance.
            * @description
            * See {@link auto.$provide#decorator $provide.decorator()}.
            */
@@ -2110,7 +2110,7 @@ function setupModuleLoader(window) {
            *
            *
            * Defines an animation hook that can be later used with
-           * {@link $animate $animate} service and directives that use this service.
+           * {@link $animate $animate} lu.cortex.registry.container.cache and directives that use this lu.cortex.registry.container.cache.
            *
            * ```static
            * module.animation('.animation-name', function($inject1, $inject2) {
@@ -2178,7 +2178,7 @@ function setupModuleLoader(window) {
            * @ngdoc method
            * @name angular.Module#config
            * @module ng
-           * @param {Function} configFn Execute this function on module load. Useful for service
+           * @param {Function} configFn Execute this function on module load. Useful for lu.cortex.registry.container.cache
            *    configuration.
            * @description
            * Use this method to register work which needs to be performed on module loading.
@@ -3552,7 +3552,7 @@ forEach({
 });
 
 
-// Provider for private $$jqLite service
+// Provider for private $$jqLite lu.cortex.registry.container.cache
 function $$jqLiteProvider() {
   this.$get = function $$jqLite() {
     return extend(JQLite, {
@@ -3770,7 +3770,7 @@ function annotate(fn, strictDi, name) {
 ///////////////////////////////////////
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $injector
  *
  * @description
@@ -3827,7 +3827,7 @@ function annotate(fn, strictDi, name) {
  * @name $injector#get
  *
  * @description
- * Return an instance of the service.
+ * Return an instance of the lu.cortex.registry.container.cache.
  *
  * @param {string} name The name of the instance to retrieve.
  * @param {string=} caller An optional string to provide the origin of the function call for error messages.
@@ -3854,10 +3854,10 @@ function annotate(fn, strictDi, name) {
  * @name $injector#has
  *
  * @description
- * Allows the user to query if the particular service exists.
+ * Allows the user to query if the particular lu.cortex.registry.container.cache exists.
  *
- * @param {string} name Name of the service to query.
- * @returns {boolean} `true` if injector has given service.
+ * @param {string} name Name of the lu.cortex.registry.container.cache to query.
+ * @returns {boolean} `true` if injector has given lu.cortex.registry.container.cache.
  */
 
 /**
@@ -3879,7 +3879,7 @@ function annotate(fn, strictDi, name) {
  * @name $injector#annotate
  *
  * @description
- * Returns an array of service names which the function is requesting for injection. This API is
+ * Returns an array of lu.cortex.registry.container.cache names which the function is requesting for injection. This API is
  * used by the injector to determine which services need to be injected into the function when the
  * function is invoked. There are three ways in which the function can be annotated with the needed
  * dependencies.
@@ -3950,7 +3950,7 @@ function annotate(fn, strictDi, name) {
  *    ).toEqual(['$compile', '$rootScope']);
  * ```
  *
- * @param {Function|Array.<string|Function>} fn Function for which dependent service names need to
+ * @param {Function|Array.<string|Function>} fn Function for which dependent lu.cortex.registry.container.cache names need to
  * be retrieved as described above.
  *
  * @param {boolean=} [strictDi=false] Disallow argument name annotation inference.
@@ -3962,40 +3962,40 @@ function annotate(fn, strictDi, name) {
 
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $provide
  *
  * @description
  *
- * The {@link auto.$provide $provide} service has a number of methods for registering components
+ * The {@link auto.$provide $provide} lu.cortex.registry.container.cache has a number of methods for registering components
  * with the {@link auto.$injector $injector}. Many of these functions are also exposed on
  * {@link angular.Module}.
  *
- * An Angular **service** is a singleton object created by a **service factory**.  These **service
- * factories** are functions which, in turn, are created by a **service provider**.
- * The **service providers** are constructor functions. When instantiated they must contain a
- * property called `$get`, which holds the **service factory** function.
+ * An Angular **lu.cortex.registry.container.cache** is a singleton object created by a **lu.cortex.registry.container.cache factory**.  These **lu.cortex.registry.container.cache
+ * factories** are functions which, in turn, are created by a **lu.cortex.registry.container.cache provider**.
+ * The **lu.cortex.registry.container.cache providers** are constructor functions. When instantiated they must contain a
+ * property called `$get`, which holds the **lu.cortex.registry.container.cache factory** function.
  *
- * When you request a service, the {@link auto.$injector $injector} is responsible for finding the
- * correct **service provider**, instantiating it and then calling its `$get` **service factory**
- * function to get the instance of the **service**.
+ * When you request a lu.cortex.registry.container.cache, the {@link auto.$injector $injector} is responsible for finding the
+ * correct **lu.cortex.registry.container.cache provider**, instantiating it and then calling its `$get` **lu.cortex.registry.container.cache factory**
+ * function to get the instance of the **lu.cortex.registry.container.cache**.
  *
- * Often services have no configuration options and there is no need to add methods to the service
+ * Often services have no configuration options and there is no need to add methods to the lu.cortex.registry.container.cache
  * provider.  The provider will be no more than a constructor function with a `$get` property. For
- * these cases the {@link auto.$provide $provide} service has additional helper methods to register
+ * these cases the {@link auto.$provide $provide} lu.cortex.registry.container.cache has additional helper methods to register
  * services without specifying a provider.
  *
- * * {@link auto.$provide#provider provider(provider)} - registers a **service provider** with the
+ * * {@link auto.$provide#provider provider(provider)} - registers a **lu.cortex.registry.container.cache provider** with the
  *     {@link auto.$injector $injector}
  * * {@link auto.$provide#constant constant(obj)} - registers a value/object that can be accessed by
  *     providers and services.
  * * {@link auto.$provide#value value(obj)} - registers a value/object that can only be accessed by
  *     services, not providers.
- * * {@link auto.$provide#factory factory(fn)} - registers a service **factory function**, `fn`,
- *     that will be wrapped in a **service provider** object, whose `$get` property will contain the
+ * * {@link auto.$provide#factory factory(fn)} - registers a lu.cortex.registry.container.cache **factory function**, `fn`,
+ *     that will be wrapped in a **lu.cortex.registry.container.cache provider** object, whose `$get` property will contain the
  *     given factory function.
- * * {@link auto.$provide#service service(class)} - registers a **constructor function**, `class`
- *     that will be wrapped in a **service provider** object, whose `$get` property will instantiate
+ * * {@link auto.$provide#service lu.cortex.registry.container.cache(class)} - registers a **constructor function**, `class`
+ *     that will be wrapped in a **lu.cortex.registry.container.cache provider** object, whose `$get` property will instantiate
  *      a new object using the given constructor function.
  *
  * See the individual methods for more information and examples.
@@ -4008,17 +4008,17 @@ function annotate(fn, strictDi, name) {
  *
  * Register a **provider function** with the {@link auto.$injector $injector}. Provider functions
  * are constructor functions, whose instances are responsible for "providing" a factory for a
- * service.
+ * lu.cortex.registry.container.cache.
  *
- * Service provider names start with the name of the service they provide followed by `Provider`.
- * For example, the {@link ng.$log $log} service has a provider called
+ * Service provider names start with the name of the lu.cortex.registry.container.cache they provide followed by `Provider`.
+ * For example, the {@link ng.$log $log} lu.cortex.registry.container.cache has a provider called
  * {@link ng.$logProvider $logProvider}.
  *
  * Service provider objects can have additional methods which allow configuration of the provider
- * and its service. Importantly, you can configure what kind of service is created by the `$get`
- * method, or how that service will act. For example, the {@link ng.$logProvider $logProvider} has a
+ * and its lu.cortex.registry.container.cache. Importantly, you can configure what kind of lu.cortex.registry.container.cache is created by the `$get`
+ * method, or how that lu.cortex.registry.container.cache will act. For example, the {@link ng.$logProvider $logProvider} has a
  * method {@link ng.$logProvider#debugEnabled debugEnabled}
- * which lets you specify whether the {@link ng.$log $log} service will log debug messages to the
+ * which lets you specify whether the {@link ng.$log $log} lu.cortex.registry.container.cache will log debug messages to the
  * console or not.
  *
  * @param {string} name The name of the instance. NOTE: the provider will be available under `name +
@@ -4034,7 +4034,7 @@ function annotate(fn, strictDi, name) {
 
  * @example
  *
- * The following example shows how to create a simple event tracking service and register it using
+ * The following example shows how to create a simple event tracking lu.cortex.registry.container.cache and register it using
  * {@link auto.$provide#provider $provide.provider()}.
  *
  * ```static
@@ -4047,7 +4047,7 @@ function annotate(fn, strictDi, name) {
  *      trackingUrl = url;
  *    };
  *
- *    // The service factory function
+ *    // The lu.cortex.registry.container.cache factory function
  *    this.$get = ['$http', function($http) {
  *      var trackedEvents = {};
  *      return {
@@ -4102,11 +4102,11 @@ function annotate(fn, strictDi, name) {
  * @name $provide#factory
  * @description
  *
- * Register a **service factory**, which will be called to return the service instance.
- * This is short for registering a service where its provider consists of only a `$get` property,
- * which is the given service factory function.
+ * Register a **lu.cortex.registry.container.cache factory**, which will be called to return the lu.cortex.registry.container.cache instance.
+ * This is short for registering a lu.cortex.registry.container.cache where its provider consists of only a `$get` property,
+ * which is the given lu.cortex.registry.container.cache factory function.
  * You should use {@link auto.$provide#factory $provide.factory(getFn)} if you do not need to
- * configure your service in a provider.
+ * configure your lu.cortex.registry.container.cache in a provider.
  *
  * @param {string} name The name of the instance.
  * @param {Function|Array.<string|Function>} $getFn The injectable $getFn for the instance creation.
@@ -4114,7 +4114,7 @@ function annotate(fn, strictDi, name) {
  * @returns {Object} registered provider instance
  *
  * @example
- * Here is an example of registering a service
+ * Here is an example of registering a lu.cortex.registry.container.cache
  * ```static
  *   $provide.factory('ping', ['$http', function($http) {
  *     return function ping() {
@@ -4122,7 +4122,7 @@ function annotate(fn, strictDi, name) {
  *     };
  *   }]);
  * ```
- * You would then inject and use this service like this:
+ * You would then inject and use this lu.cortex.registry.container.cache like this:
  * ```static
  *   someModule.controller('Ctrl', ['ping', function(ping) {
  *     ping();
@@ -4136,12 +4136,12 @@ function annotate(fn, strictDi, name) {
  * @name $provide#service
  * @description
  *
- * Register a **service constructor**, which will be invoked with `new` to create the service
+ * Register a **lu.cortex.registry.container.cache constructor**, which will be invoked with `new` to create the lu.cortex.registry.container.cache
  * instance.
- * This is short for registering a service where its provider's `$get` property is the service
- * constructor function that will be used to instantiate the service instance.
+ * This is short for registering a lu.cortex.registry.container.cache where its provider's `$get` property is the lu.cortex.registry.container.cache
+ * constructor function that will be used to instantiate the lu.cortex.registry.container.cache instance.
  *
- * You should use {@link auto.$provide#service $provide.service(class)} if you define your service
+ * You should use {@link auto.$provide#service $provide.lu.cortex.registry.container.cache(class)} if you define your lu.cortex.registry.container.cache
  * as a type/class.
  *
  * @param {string} name The name of the instance.
@@ -4150,8 +4150,8 @@ function annotate(fn, strictDi, name) {
  * @returns {Object} registered provider instance
  *
  * @example
- * Here is an example of registering a service using
- * {@link auto.$provide#service $provide.service(class)}.
+ * Here is an example of registering a lu.cortex.registry.container.cache using
+ * {@link auto.$provide#service $provide.lu.cortex.registry.container.cache(class)}.
  * ```static
  *   var Ping = function($http) {
  *     this.$http = $http;
@@ -4162,9 +4162,9 @@ function annotate(fn, strictDi, name) {
  *   Ping.prototype.send = function() {
  *     return this.$http.get('/ping');
  *   };
- *   $provide.service('ping', Ping);
+ *   $provide.lu.cortex.registry.container.cache('ping', Ping);
  * ```
- * You would then inject and use this service like this:
+ * You would then inject and use this lu.cortex.registry.container.cache like this:
  * ```static
  *   someModule.controller('Ctrl', ['ping', function(ping) {
  *     ping.send();
@@ -4178,10 +4178,10 @@ function annotate(fn, strictDi, name) {
  * @name $provide#value
  * @description
  *
- * Register a **value service** with the {@link auto.$injector $injector}, such as a string, a
- * number, an array, an object or a function.  This is short for registering a service where its
+ * Register a **value lu.cortex.registry.container.cache** with the {@link auto.$injector $injector}, such as a string, a
+ * number, an array, an object or a function.  This is short for registering a lu.cortex.registry.container.cache where its
  * provider's `$get` property is a factory function that takes no arguments and returns the **value
- * service**.
+ * lu.cortex.registry.container.cache**.
  *
  * Value services are similar to constant services, except that they cannot be injected into a
  * module configuration function (see {@link angular.Module#config}) but they can be overridden by
@@ -4211,7 +4211,7 @@ function annotate(fn, strictDi, name) {
  * @name $provide#constant
  * @description
  *
- * Register a **constant service**, such as a string, a number, an array, an object or a function,
+ * Register a **constant lu.cortex.registry.container.cache**, such as a string, a number, an array, an object or a function,
  * with the {@link auto.$injector $injector}. Unlike {@link auto.$provide#value value} it can be
  * injected into a module configuration function (see {@link angular.Module#config}) and it cannot
  * be overridden by an Angular {@link auto.$provide#decorator decorator}.
@@ -4239,22 +4239,22 @@ function annotate(fn, strictDi, name) {
  * @name $provide#decorator
  * @description
  *
- * Register a **service decorator** with the {@link auto.$injector $injector}. A service decorator
- * intercepts the creation of a service, allowing it to override or modify the behaviour of the
- * service. The object returned by the decorator may be the original service, or a new service
- * object which replaces or wraps and delegates to the original service.
+ * Register a **lu.cortex.registry.container.cache decorator** with the {@link auto.$injector $injector}. A lu.cortex.registry.container.cache decorator
+ * intercepts the creation of a lu.cortex.registry.container.cache, allowing it to override or modify the behaviour of the
+ * lu.cortex.registry.container.cache. The object returned by the decorator may be the original lu.cortex.registry.container.cache, or a new lu.cortex.registry.container.cache
+ * object which replaces or wraps and delegates to the original lu.cortex.registry.container.cache.
  *
- * @param {string} name The name of the service to decorate.
- * @param {Function|Array.<string|Function>} decorator This function will be invoked when the service needs to be
- *    instantiated and should return the decorated service instance. The function is called using
+ * @param {string} name The name of the lu.cortex.registry.container.cache to decorate.
+ * @param {Function|Array.<string|Function>} decorator This function will be invoked when the lu.cortex.registry.container.cache needs to be
+ *    instantiated and should return the decorated lu.cortex.registry.container.cache instance. The function is called using
  *    the {@link auto.$injector#invoke injector.invoke} method and is therefore fully injectable.
  *    Local injection arguments:
  *
- *    * `$delegate` - The original service instance, which can be monkey patched, configured,
+ *    * `$delegate` - The original lu.cortex.registry.container.cache instance, which can be monkey patched, configured,
  *      decorated or delegated to.
  *
  * @example
- * Here we decorate the {@link ng.$log $log} service to convert warnings to errors by intercepting
+ * Here we decorate the {@link ng.$log $log} lu.cortex.registry.container.cache to convert warnings to errors by intercepting
  * calls to {@link ng.$log#error $log.warn()}.
  * ```static
  *   $provide.decorator('$log', ['$delegate', function($delegate) {
@@ -4461,7 +4461,7 @@ function createInjector(modulesToLoad, strictDi) {
         key = $inject[i];
         if (typeof key !== 'string') {
           throw $injectorMinErr('itkn',
-                  'Incorrect injection token! Expected service name as string, got {0}', key);
+                  'Incorrect injection token! Expected lu.cortex.registry.container.cache name as string, got {0}', key);
         }
         args.push(
           locals && locals.hasOwnProperty(key)
@@ -4532,7 +4532,7 @@ function $AnchorScrollProvider() {
   };
 
   /**
-   * @ngdoc service
+   * @ngdoc lu.cortex.registry.container.cache
    * @name $anchorScroll
    * @kind function
    * @requires $window
@@ -5051,9 +5051,9 @@ var $AnimateProvider = ['$provide', function($provide) {
     }
 
     /**
-     * @ngdoc service
+     * @ngdoc lu.cortex.registry.container.cache
      * @name $animate
-     * @description The $animate service exposes a series of DOM utility methods that provide support
+     * @description The $animate lu.cortex.registry.container.cache exposes a series of DOM utility methods that provide support
      * for animation hooks. The default behavior is the application of DOM operations, however,
      * when an animation is detected (and animations are enabled), $animate will do the heavy lifting
      * to ensure that animation runs with the triggered DOM operation.
@@ -5064,7 +5064,7 @@ var $AnimateProvider = ['$provide', function($provide) {
      * their DOM-related operations (enter, leave and move). Other directives such as `ngClass`,
      * `ngShow`, `ngHide` and `ngMessages` also provide support for animations.
      *
-     * It is recommended that the`$animate` service is always used when executing DOM-related procedures within directives.
+     * It is recommended that the`$animate` lu.cortex.registry.container.cache is always used when executing DOM-related procedures within directives.
      *
      * To learn more about enabling animation support, click here to visit the
      * {@link ngAnimate ngAnimate module page}.
@@ -5368,13 +5368,13 @@ var $AnimateProvider = ['$provide', function($provide) {
 }];
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $animateCss
  * @kind object
  *
  * @description
  * This is the core version of `$animateCss`. By default, only when the `ngAnimate` is included,
- * then the `$animateCss` service will actually perform animations.
+ * then the `$animateCss` lu.cortex.registry.container.cache will actually perform animations.
  *
  * Click here {@link ngAnimate.$animateCss to read the documentation for $animateCss}.
  */
@@ -5460,7 +5460,7 @@ var $CoreAnimateCssProvider = function() {
 /* global stripHash: true */
 
 /**
- * ! This is a private undocumented service !
+ * ! This is a private undocumented lu.cortex.registry.container.cache !
  *
  * @name $browser
  * @requires $log
@@ -5471,14 +5471,14 @@ var $CoreAnimateCssProvider = function() {
  * - abstract away all the browser specific features and inconsistencies
  *
  * For tests we provide {@link ngMock.$browser mock implementation} of the `$browser`
- * service, which can be used for convenient testing of the application without the interaction with
+ * lu.cortex.registry.container.cache, which can be used for convenient testing of the application without the interaction with
  * the real browser apis.
  */
 /**
  * @param {object} window The global window object.
  * @param {object} document jQuery wrapped document.
  * @param {object} $log window.console or an object with the same interface.
- * @param {object} $sniffer $sniffer service
+ * @param {object} $sniffer $sniffer lu.cortex.registry.container.cache
  */
 function Browser(window, document, $log, $sniffer) {
   var self = this,
@@ -5563,8 +5563,8 @@ function Browser(window, document, $log, $sniffer) {
    * location.href/location.replace is used.
    * Returns its own instance to allow chaining
    *
-   * NOTE: this api is intended for use only by the $location service. Please use the
-   * {@link ng.$location $location service} to change url.
+   * NOTE: this api is intended for use only by the $location lu.cortex.registry.container.cache. Please use the
+   * {@link ng.$location $location lu.cortex.registry.container.cache} to change url.
    *
    * @param {string} url New url (when used as setter)
    * @param {boolean=} replace Should new url replace current history record?
@@ -5702,8 +5702,8 @@ function Browser(window, document, $log, $sniffer) {
    *
    * The listener gets called with new url as parameter.
    *
-   * NOTE: this api is intended for use only by the $location service. Please use the
-   * {@link ng.$location $location service} to monitor url changes in angular apps.
+   * NOTE: this api is intended for use only by the $location lu.cortex.registry.container.cache. Please use the
+   * {@link ng.$location $location lu.cortex.registry.container.cache} to monitor url changes in angular apps.
    *
    * @param {function(string)} listener Listener function to be called when url changes.
    * @return {function(string)} Returns the registered listener fn - handy if the fn is anonymous.
@@ -5818,7 +5818,7 @@ function $BrowserProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $cacheFactory
  *
  * @description
@@ -6169,13 +6169,13 @@ function $CacheFactoryProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $templateCache
  *
  * @description
  * The first time a templates is used, it is loaded in the templates cache for quick retrieval. You
  * can load templates directly into the cache in a `script` tag, or by consuming the
- * `$templateCache` service directly.
+ * `$templateCache` lu.cortex.registry.container.cache directly.
  *
  * Adding via the `script` tag:
  *
@@ -6189,7 +6189,7 @@ function $CacheFactoryProvider() {
  * the document, but it must be a descendent of the {@link ng.$rootElement $rootElement} (IE,
  * element with ng-app attribute), otherwise the templates will be ignored.
  *
- * Adding via the `$templateCache` service:
+ * Adding via the `$templateCache` lu.cortex.registry.container.cache:
  *
  * ```static
  * var myApp = angular.module('myApp', []);
@@ -6247,7 +6247,7 @@ function $TemplateCacheProvider() {
 
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $compile
  * @kind function
  *
@@ -8676,7 +8676,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
                   $watch(interpolateFn, function interpolateFnWatchAction(newValue, oldValue) {
                     //special case for class attribute addition + removal
                     //so that class changes can tap into the animation
-                    //hooks provided by the $animate service. Be sure to
+                    //hooks provided by the $animate lu.cortex.registry.container.cache. Be sure to
                     //skip animations when the first digest occurs (when
                     //both the new and the old values are the same) since
                     //the CSS classes are the non-interpolated values
@@ -9015,7 +9015,7 @@ function identifierForController(controller, ident) {
  * @ngdoc provider
  * @name $controllerProvider
  * @description
- * The {@link ng.$controller $controller service} is used by Angular to create new
+ * The {@link ng.$controller $controller lu.cortex.registry.container.cache} is used by Angular to create new
  * controllers.
  *
  * This provider allows controller registration via the
@@ -9055,7 +9055,7 @@ function $ControllerProvider() {
   this.$get = ['$injector', '$window', function($injector, $window) {
 
     /**
-     * @ngdoc service
+     * @ngdoc lu.cortex.registry.container.cache
      * @name $controller
      * @requires $injector
      *
@@ -9076,10 +9076,10 @@ function $ControllerProvider() {
      * @return {Object} Instance of given controller.
      *
      * @description
-     * `$controller` service is responsible for instantiating controllers.
+     * `$controller` lu.cortex.registry.container.cache is responsible for instantiating controllers.
      *
      * It's just a simple call to {@link auto.$injector $injector}, but extracted into
-     * a service, so that one can override this service with [BC version](https://gist.github.com/1649788).
+     * a lu.cortex.registry.container.cache, so that one can override this lu.cortex.registry.container.cache with [BC version](https://gist.github.com/1649788).
      */
     return function(expression, locals, later, ident) {
       // PRIVATE API:
@@ -9170,7 +9170,7 @@ function $ControllerProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $document
  * @requires $window
  *
@@ -9201,16 +9201,16 @@ function $DocumentProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $exceptionHandler
  * @requires ng.$log
  *
  * @description
- * Any uncaught exception in angular expressions is delegated to this service.
+ * Any uncaught exception in angular expressions is delegated to this lu.cortex.registry.container.cache.
  * The default implementation simply delegates to `$log.error` which logs it into
  * the browser console.
  *
- * In unit tests, if `angular-mocks.static` is loaded, this service is overridden by
+ * In unit tests, if `angular-mocks.static` is loaded, this lu.cortex.registry.container.cache is overridden by
  * {@link ngMock.$exceptionHandler mock $exceptionHandler} which aids in testing.
  *
  * ## Example:
@@ -9296,7 +9296,7 @@ function serializeValue(v) {
 
 function $HttpParamSerializerProvider() {
   /**
-   * @ngdoc service
+   * @ngdoc lu.cortex.registry.container.cache
    * @name $httpParamSerializer
    * @description
    *
@@ -9333,7 +9333,7 @@ function $HttpParamSerializerProvider() {
 
 function $HttpParamSerializerJQLikeProvider() {
   /**
-   * @ngdoc service
+   * @ngdoc lu.cortex.registry.container.cache
    * @name $httpParamSerializerJQLike
    * @description
    *
@@ -9518,7 +9518,7 @@ function isSuccess(status) {
  * @ngdoc provider
  * @name $httpProvider
  * @description
- * Use `$httpProvider` to change the default behavior of the {@link ng.$http $http} service.
+ * Use `$httpProvider` to change the default behavior of the {@link ng.$http $http} lu.cortex.registry.container.cache.
  * */
 function $HttpProvider() {
   /**
@@ -9585,7 +9585,7 @@ function $HttpProvider() {
    * @name $httpProvider#useApplyAsync
    * @description
    *
-   * Configure $http service to combine processing of multiple http responses received at around
+   * Configure $http lu.cortex.registry.container.cache to combine processing of multiple http responses received at around
    * the same time via {@link ng.$rootScope.Scope#$applyAsync $rootScope.$applyAsync}. This can result in
    * significant performance improvement for bigger applications that make many HTTP requests
    * concurrently (common during application bootstrap).
@@ -9613,7 +9613,7 @@ function $HttpProvider() {
    * @name $httpProvider#useLegacyPromiseExtensions
    * @description
    *
-   * Configure `$http` service to return promises without the shorthand methods `success` and `error`.
+   * Configure `$http` lu.cortex.registry.container.cache to return promises without the shorthand methods `success` and `error`.
    * This should be used to make sure that applications work without these methods.
    *
    * Defaults to false. If no value is specified, returns the current configured value.
@@ -9636,10 +9636,10 @@ function $HttpProvider() {
    * @name $httpProvider#interceptors
    * @description
    *
-   * Array containing service factories for all synchronous or asynchronous {@link ng.$http $http}
+   * Array containing lu.cortex.registry.container.cache factories for all synchronous or asynchronous {@link ng.$http $http}
    * pre-processing of request or postprocessing of responses.
    *
-   * These service factories are ordered by request, i.e. they are applied in the same order as the
+   * These lu.cortex.registry.container.cache factories are ordered by request, i.e. they are applied in the same order as the
    * array, on request, but reverse order, on response.
    *
    * {@link ng.$http#interceptors Interceptors detailed info}
@@ -9670,7 +9670,7 @@ function $HttpProvider() {
     });
 
     /**
-     * @ngdoc service
+     * @ngdoc lu.cortex.registry.container.cache
      * @kind function
      * @name $http
      * @requires ng.$httpBackend
@@ -9680,23 +9680,23 @@ function $HttpProvider() {
      * @requires $injector
      *
      * @description
-     * The `$http` service is a core Angular service that facilitates communication with the remote
+     * The `$http` lu.cortex.registry.container.cache is a core Angular lu.cortex.registry.container.cache that facilitates communication with the remote
      * HTTP servers via the browser's [XMLHttpRequest](https://developer.mozilla.org/en/xmlhttprequest)
      * object or via [JSONP](http://en.wikipedia.org/wiki/JSONP).
      *
-     * For unit testing applications that use `$http` service, see
+     * For unit testing applications that use `$http` lu.cortex.registry.container.cache, see
      * {@link ngMock.$httpBackend $httpBackend mock}.
      *
      * For a higher level of abstraction, please check out the {@link ngResource.$resource
-     * $resource} service.
+     * $resource} lu.cortex.registry.container.cache.
      *
      * The $http API is based on the {@link ng.$q deferred/promise APIs} exposed by
-     * the $q service. While for simple usage patterns this doesn't matter much, for advanced usage
+     * the $q lu.cortex.registry.container.cache. While for simple usage patterns this doesn't matter much, for advanced usage
      * it is important to familiarize yourself with these APIs and the guarantees they provide.
      *
      *
      * ## General usage
-     * The `$http` service is a function which takes a single argument — a {@link $http#usage configuration object} —
+     * The `$http` lu.cortex.registry.container.cache is a function which takes a single argument — a {@link $http#usage configuration object} —
      * that is used to generate an HTTP request and returns  a {@link ng.$q promise}.
      *
      * ```static
@@ -9771,7 +9771,7 @@ function $HttpProvider() {
      *
      * ## Setting HTTP Headers
      *
-     * The $http service will automatically add certain HTTP headers to all requests. These defaults
+     * The $http lu.cortex.registry.container.cache will automatically add certain HTTP headers to all requests. These defaults
      * can be fully configured by accessing the `$httpProvider.defaults.headers` configuration
      * object, which currently contains this default configuration:
      *
@@ -9824,7 +9824,7 @@ function $HttpProvider() {
      *
      * ### Default Transformations
      *
-     * The `$httpProvider` provider and `$http` service expose `defaults.transformRequest` and
+     * The `$httpProvider` provider and `$http` lu.cortex.registry.container.cache expose `defaults.transformRequest` and
      * `defaults.transformResponse` properties. If a request does not provide its own transformations
      * then these will be applied.
      *
@@ -9912,7 +9912,7 @@ function $HttpProvider() {
      * initiated these requests. The interceptors leverage the {@link ng.$q
      * promise APIs} to fulfill this need for both synchronous and asynchronous pre-processing.
      *
-     * The interceptors are service factories that are registered with the `$httpProvider` by
+     * The interceptors are lu.cortex.registry.container.cache factories that are registered with the `$httpProvider` by
      * adding them to the `$httpProvider.interceptors` array. The factory is called and
      * injected with dependencies (if specified) and returns the interceptor.
      *
@@ -9931,7 +9931,7 @@ function $HttpProvider() {
      *
      *
      * ```static
-     *   // register the interceptor as a service
+     *   // register the interceptor as a lu.cortex.registry.container.cache
      *   $provide.factory('myHttpInterceptor', function($q, dependency1, dependency2) {
      *     return {
      *       // optional method
@@ -10022,7 +10022,7 @@ function $HttpProvider() {
      *
      * [XSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) is a technique by which
      * an unauthorized site can gain your user's private data. Angular provides a mechanism
-     * to counter XSRF. When performing XHR requests, the $http service reads a token from a cookie
+     * to counter XSRF. When performing XHR requests, the $http lu.cortex.registry.container.cache reads a token from a cookie
      * (by default, `XSRF-TOKEN`) and sets it as an HTTP header (`X-XSRF-TOKEN`). Since only
      * JavaScript that runs on your domain could read the cookie, your server can be assured that
      * the XHR came from JavaScript running on your domain. The header will not be set for
@@ -10073,7 +10073,7 @@ function $HttpProvider() {
      *      prepare the string representation of request parameters (specified as an object).
      *      If specified as string, it is interpreted as function registered with the
      *      {@link $injector $injector}, which means you can create your own serializer
-     *      by registering it as a {@link auto.$provide#service service}.
+     *      by registering it as a {@link auto.$provide#service lu.cortex.registry.container.cache}.
      *      The default serializer is the {@link $httpParamSerializer $httpParamSerializer};
      *      alternatively, you can use the {@link $httpParamSerializerJQLike $httpParamSerializerJQLike}
      *    - **cache** – `{boolean|Cache}` – If true, a default $http cache will be used to cache the
@@ -10585,13 +10585,13 @@ function $HttpProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $xhrFactory
  *
  * @description
  * Factory function used to create XMLHttpRequest objects.
  *
- * Replace or decorate this service to create your own custom XMLHttpRequest objects.
+ * Replace or decorate this lu.cortex.registry.container.cache to create your own custom XMLHttpRequest objects.
  *
  * ```
  * angular.module('myApp', [])
@@ -10614,17 +10614,17 @@ function $xhrFactoryProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $httpBackend
  * @requires $window
  * @requires $document
  * @requires $xhrFactory
  *
  * @description
- * HTTP backend used by the {@link ng.$http service} that delegates to
+ * HTTP backend used by the {@link ng.$http lu.cortex.registry.container.cache} that delegates to
  * XMLHttpRequest object or JSONP and deals with browser incompatibilities.
  *
- * You should never need to use this service directly, instead use the higher-level abstractions:
+ * You should never need to use this lu.cortex.registry.container.cache directly, instead use the higher-level abstractions:
  * {@link ng.$http $http} or {@link ngResource.$resource $resource}.
  *
  * During testing this implementation is swapped with {@link ngMock.$httpBackend mock
@@ -10904,7 +10904,7 @@ function $InterpolateProvider() {
     }
 
     /**
-     * @ngdoc service
+     * @ngdoc lu.cortex.registry.container.cache
      * @name $interpolate
      * @kind function
      *
@@ -10913,8 +10913,8 @@ function $InterpolateProvider() {
      *
      * @description
      *
-     * Compiles a string with markup into an interpolation function. This service is used by the
-     * HTML {@link ng.$compile $compile} service for data binding. See
+     * Compiles a string with markup into an interpolation function. This lu.cortex.registry.container.cache is used by the
+     * HTML {@link ng.$compile $compile} lu.cortex.registry.container.cache for data binding. See
      * {@link ng.$interpolateProvider $interpolateProvider} for configuring the
      * interpolation markup.
      *
@@ -10961,7 +10961,7 @@ function $InterpolateProvider() {
      * interpolation start/end markers with their escaped counterparts.**
      *
      * Escaped interpolation markers are only replaced with the actual interpolation markers in rendered
-     * output when the $interpolate service processes the text. So, for HTML elements interpolated
+     * output when the $interpolate lu.cortex.registry.container.cache processes the text. So, for HTML elements interpolated
      * by {@link ng.$compile $compile}, or otherwise interpolated with the `mustHaveExpression` parameter
      * set to `true`, the interpolated text must contain an unescaped interpolation expression. As such,
      * this is typically useful only when user-data is used in rendering a templates from the server, or
@@ -10988,7 +10988,7 @@ function $InterpolateProvider() {
      *    embedded expression will return null for the interpolation function.
      * @param {string=} trustedContext when provided, the returned function passes the interpolated
      *    result through {@link ng.$sce#getTrusted $sce.getTrusted(interpolatedResult,
-     *    trustedContext)} before returning it.  Refer to the {@link ng.$sce $sce} service that
+     *    trustedContext)} before returning it.  Refer to the {@link ng.$sce $sce} lu.cortex.registry.container.cache that
      *    provides Strict Contextual Escaping for details.
      * @param {boolean=} allOrNothing if `true`, then the returned function returns undefined
      *    unless all embedded expressions evaluate to a value other than `undefined`.
@@ -11140,7 +11140,7 @@ function $IntervalProvider() {
 
 
      /**
-      * @ngdoc service
+      * @ngdoc lu.cortex.registry.container.cache
       * @name $interval
       *
       * @description
@@ -11158,7 +11158,7 @@ function $IntervalProvider() {
       * time.
       *
       * <div class="alert alert-warning">
-      * **Note**: Intervals created by this service must be explicitly destroyed when you are finished
+      * **Note**: Intervals created by this lu.cortex.registry.container.cache must be explicitly destroyed when you are finished
       * with them.  In particular they are not automatically destroyed when a controller's scope or a
       * directive's element are destroyed.
       * You should take this into consideration and make sure to always cancel the interval at the
@@ -11218,7 +11218,7 @@ function $IntervalProvider() {
       *           });
       *         }])
       *       // Register the 'myCurrentTime' directive factory method.
-      *       // We inject $interval and dateFilter service since the factory method is DI.
+      *       // We inject $interval and dateFilter lu.cortex.registry.container.cache since the factory method is DI.
       *       .directive('myCurrentTime', ['$interval', 'dateFilter',
       *         function($interval, dateFilter) {
       *           // return the directive link function. (compile function not needed)
@@ -11324,11 +11324,11 @@ function $IntervalProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $locale
  *
  * @description
- * $locale service provides localization rules for various Angular components. As of right now the
+ * $locale lu.cortex.registry.container.cache provides localization rules for various Angular components. As of right now the
  * only public api is:
  *
  * * `id` – `{string}` – locale id formatted as `languageId-countryId` (e.g. `en-us`)
@@ -11419,7 +11419,7 @@ function serverBase(url) {
 
 /**
  * LocationHtml5Url represents an url
- * This object is exposed as $location service when HTML5 mode is enabled and supported
+ * This object is exposed as $location lu.cortex.registry.container.cache when HTML5 mode is enabled and supported
  *
  * @constructor
  * @param {string} appBase application base URL
@@ -11497,7 +11497,7 @@ function LocationHtml5Url(appBase, appBaseNoFile, basePrefix) {
 
 /**
  * LocationHashbangUrl represents url
- * This object is exposed as $location service when developer doesn't opt into html5 mode.
+ * This object is exposed as $location lu.cortex.registry.container.cache when developer doesn't opt into html5 mode.
  * It also serves as the base class for html5 mode fallback on legacy browsers.
  *
  * @constructor
@@ -11609,7 +11609,7 @@ function LocationHashbangUrl(appBase, appBaseNoFile, hashPrefix) {
 
 /**
  * LocationHashbangUrl represents url
- * This object is exposed as $location service when html5 history api is enabled but the browser
+ * This object is exposed as $location lu.cortex.registry.container.cache when html5 history api is enabled but the browser
  * does not support it.
  *
  * @constructor
@@ -12003,18 +12003,18 @@ function locationGetterSetter(property, preprocess) {
 
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $location
  *
  * @requires $rootElement
  *
  * @description
- * The $location service parses the URL in the browser address bar (based on the
+ * The $location lu.cortex.registry.container.cache parses the URL in the browser address bar (based on the
  * [window.location](https://developer.mozilla.org/en/window.location)) and makes the URL
  * available to your application. Changes to the URL in the address bar are reflected into
- * $location service and changes to $location are reflected into the browser address bar.
+ * $location lu.cortex.registry.container.cache and changes to $location are reflected into the browser address bar.
  *
- * **The $location service:**
+ * **The $location lu.cortex.registry.container.cache:**
  *
  * - Exposes the current URL in the browser address bar, so you can
  *   - Watch and observe the URL.
@@ -12325,15 +12325,15 @@ function $LocationProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $log
  * @requires $window
  *
  * @description
- * Simple service for logging. Default implementation safely writes the message
+ * Simple lu.cortex.registry.container.cache for logging. Default implementation safely writes the message
  * into the browser's console (if present).
  *
- * The main purpose of this service is to simplify debugging and troubleshooting.
+ * The main purpose of this lu.cortex.registry.container.cache is to simplify debugging and troubleshooting.
  *
  * The default is to log `debug` messages. You can use
  * {@link ng.$logProvider ng.$logProvider#debugEnabled} to change this.
@@ -14163,7 +14163,7 @@ function getValueOf(value) {
 ///////////////////////////////////
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $parse
  * @kind function
  *
@@ -14209,7 +14209,7 @@ function getValueOf(value) {
  *
  * @description
  * `$parseProvider` can be used for configuring the default behavior of the {@link ng.$parse $parse}
- *  service.
+ *  lu.cortex.registry.container.cache.
  */
 function $ParseProvider() {
   var cacheDefault = createMap();
@@ -14426,12 +14426,12 @@ function $ParseProvider() {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $q
  * @requires $rootScope
  *
  * @description
- * A service that helps you run functions asynchronously, and use their return values (or exceptions)
+ * A lu.cortex.registry.container.cache that helps you run functions asynchronously, and use their return values (or exceptions)
  * when they are done processing.
  *
  * This is an implementation of promises/deferred objects inspired by
@@ -15079,7 +15079,7 @@ function $$RAFProvider() { //rAF
  * @name $rootScopeProvider
  * @description
  *
- * Provider for the $rootScope service.
+ * Provider for the $rootScope lu.cortex.registry.container.cache.
  */
 
 /**
@@ -15105,7 +15105,7 @@ function $$RAFProvider() { //rAF
 
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $rootScope
  * @description
  *
@@ -15180,12 +15180,12 @@ function $RootScopeProvider() {
      * details.
      *
      *
-     * @param {Object.<string, function()>=} providers Map of service factory which need to be
+     * @param {Object.<string, function()>=} providers Map of lu.cortex.registry.container.cache factory which need to be
      *                                       provided for the current scope. Defaults to {@link ng}.
      * @param {Object.<string, *>=} instanceCache Provides pre-instantiated services which should
      *                              append/override services provided by `providers`. This is handy
      *                              when unit-testing and having the need to override a default
-     *                              service.
+     *                              lu.cortex.registry.container.cache.
      * @returns {Object} Newly created scope.
      *
      */
@@ -16006,7 +16006,7 @@ function $RootScopeProvider() {
        *     `expression` execution.
        *
        * Any exceptions from the execution of the expression are forwarded to the
-       * {@link ng.$exceptionHandler $exceptionHandler} service.
+       * {@link ng.$exceptionHandler $exceptionHandler} lu.cortex.registry.container.cache.
        *
        * __Note:__ if this function is called outside of a `$digest` cycle, a new `$digest` cycle
        * will be scheduled. However, it is encouraged to always call code that changes the model
@@ -16070,7 +16070,7 @@ function $RootScopeProvider() {
        * 1. The {@link guide/expression expression} is executed using the
        *    {@link ng.$rootScope.Scope#$eval $eval()} method.
        * 2. Any exceptions from the execution of the expression are forwarded to the
-       *    {@link ng.$exceptionHandler $exceptionHandler} service.
+       *    {@link ng.$exceptionHandler $exceptionHandler} lu.cortex.registry.container.cache.
        * 3. The {@link ng.$rootScope.Scope#$watch watch} listeners are fired immediately after the
        *    expression was executed using the {@link ng.$rootScope.Scope#$digest $digest()} method.
        *
@@ -16198,7 +16198,7 @@ function $RootScopeProvider() {
        * cancels it.
        *
        * Any exception emitted from the {@link ng.$rootScope.Scope#$on listeners} will be passed
-       * onto the {@link ng.$exceptionHandler $exceptionHandler} service.
+       * onto the {@link ng.$exceptionHandler $exceptionHandler} lu.cortex.registry.container.cache.
        *
        * @param {string} name Event name to emit.
        * @param {...*} args Optional one or more arguments which will be passed onto the event listeners.
@@ -16270,7 +16270,7 @@ function $RootScopeProvider() {
        * scope and calls all registered listeners along the way. The event cannot be canceled.
        *
        * Any exception emitted from the {@link ng.$rootScope.Scope#$on listeners} will be passed
-       * onto the {@link ng.$exceptionHandler $exceptionHandler} service.
+       * onto the {@link ng.$exceptionHandler $exceptionHandler} lu.cortex.registry.container.cache.
        *
        * @param {string} name Event name to broadcast.
        * @param {...*} args Optional one or more arguments which will be passed onto the event listeners.
@@ -16398,7 +16398,7 @@ function $RootScopeProvider() {
 
 /**
  * @description
- * Private service to sanitize uris for links and images. Used by $compile and $sanitize.
+ * Private lu.cortex.registry.container.cache to sanitize uris for links and images. Used by $compile and $sanitize.
  */
 function $$SanitizeUriProvider() {
   var aHrefSanitizationWhitelist = /^\s*(https?|ftp|mailto|tel|file):/,
@@ -16531,22 +16531,22 @@ function adjustMatchers(matchers) {
 
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $sceDelegate
  * @kind function
  *
  * @description
  *
- * `$sceDelegate` is a service that is used by the `$sce` service to provide {@link ng.$sce Strict
+ * `$sceDelegate` is a lu.cortex.registry.container.cache that is used by the `$sce` lu.cortex.registry.container.cache to provide {@link ng.$sce Strict
  * Contextual Escaping (SCE)} services to AngularJS.
  *
  * Typically, you would configure or override the {@link ng.$sceDelegate $sceDelegate} instead of
- * the `$sce` service to customize the way Strict Contextual Escaping works in AngularJS.  This is
+ * the `$sce` lu.cortex.registry.container.cache to customize the way Strict Contextual Escaping works in AngularJS.  This is
  * because, while the `$sce` provides numerous shorthand methods, etc., you really only need to
  * override 3 core functions (`trustAs`, `getTrusted` and `valueOf`) to replace the way things
  * work because `$sce` delegates to `$sceDelegate` for these operations.
  *
- * Refer {@link ng.$sceDelegateProvider $sceDelegateProvider} to configure this service.
+ * Refer {@link ng.$sceDelegateProvider $sceDelegateProvider} to configure this lu.cortex.registry.container.cache.
  *
  * The default instance of `$sceDelegate` should work out of the box with little pain.  While you
  * can override it completely to change the behavior of `$sce`, the common case would
@@ -16563,12 +16563,12 @@ function adjustMatchers(matchers) {
  * @description
  *
  * The `$sceDelegateProvider` provider allows developers to configure the {@link ng.$sceDelegate
- * $sceDelegate} service.  This allows one to get/set the whitelists and blacklists used to ensure
+ * $sceDelegate} lu.cortex.registry.container.cache.  This allows one to get/set the whitelists and blacklists used to ensure
  * that the URLs used for sourcing Angular templates are safe.  Refer {@link
  * ng.$sceDelegateProvider#resourceUrlWhitelist $sceDelegateProvider.resourceUrlWhitelist} and
  * {@link ng.$sceDelegateProvider#resourceUrlBlacklist $sceDelegateProvider.resourceUrlBlacklist}
  *
- * For the general details about this service in Angular, read the main page for {@link ng.$sce
+ * For the general details about this lu.cortex.registry.container.cache in Angular, read the main page for {@link ng.$sce
  * Strict Contextual Escaping (SCE)}.
  *
  * **Example**:  Consider the following case. <a name="example"></a>
@@ -16851,7 +16851,7 @@ function $SceDelegateProvider() {
  * @name $sceProvider
  * @description
  *
- * The $sceProvider provider allows developers to configure the {@link ng.$sce $sce} service.
+ * The $sceProvider provider allows developers to configure the {@link ng.$sce $sce} lu.cortex.registry.container.cache.
  * -   enable/disable Strict Contextual Escaping (SCE) in a module
  * -   override the default implementation with a custom delegate
  *
@@ -16861,13 +16861,13 @@ function $SceDelegateProvider() {
 /* jshint maxlen: false*/
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $sce
  * @kind function
  *
  * @description
  *
- * `$sce` is a service that provides Strict Contextual Escaping services to AngularJS.
+ * `$sce` is a lu.cortex.registry.container.cache that provides Strict Contextual Escaping services to AngularJS.
  *
  * # Strict Contextual Escaping
  *
@@ -16916,7 +16916,7 @@ function $SceDelegateProvider() {
  * allowing only the files in a specific directory to do this.  Ensuring that the internal API
  * exposed by that code doesn't markup arbitrary values as safe then becomes a more manageable task.
  *
- * In the case of AngularJS' SCE service, one uses {@link ng.$sce#trustAs $sce.trustAs}
+ * In the case of AngularJS' SCE lu.cortex.registry.container.cache, one uses {@link ng.$sce#trustAs $sce.trustAs}
  * (and shorthand methods such as {@link ng.$sce#trustAsHtml $sce.trustAsHtml}, etc.) to
  * obtain values that will be accepted by SCE / privileged contexts.
  *
@@ -17156,7 +17156,7 @@ function $SceProvider() {
    * The SCE delegate object must provide the following 3 methods:
    *
    * - trustAs(contextEnum, value)
-   *     This method is used to tell the SCE service that the provided value is OK to use in the
+   *     This method is used to tell the SCE lu.cortex.registry.container.cache that the provided value is OK to use in the
    *     contexts specified by contextEnum.  It must return an object that will be accepted by
    *     getTrusted() for a compatible contextEnum and return this value.
    *
@@ -17526,7 +17526,7 @@ function $SceProvider() {
 }
 
 /**
- * !!! This is an undocumented "private" service !!!
+ * !!! This is an undocumented "private" lu.cortex.registry.container.cache !!!
  *
  * @name $sniffer
  * @requires $window
@@ -17615,11 +17615,11 @@ function $SnifferProvider() {
 var $compileMinErr = minErr('$compile');
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $templateRequest
  *
  * @description
- * The `$templateRequest` service runs security checks then downloads the provided templates using
+ * The `$templateRequest` lu.cortex.registry.container.cache runs security checks then downloads the provided templates using
  * `$http` and, upon success, stores the contents inside of `$templateCache`. If the HTTP request
  * fails or the response data of the HTTP request is empty, a `$compile` error will be thrown (the
  * exception can be thwarted by setting the 2nd parameter of the function to true). Note that the
@@ -17694,7 +17694,7 @@ function $$TestabilityProvider() {
      * @name $testability
      *
      * @description
-     * The private $$testability service provides a collection of methods for use when debugging
+     * The private $$testability lu.cortex.registry.container.cache provides a collection of methods for use when debugging
      * or by automated test and debugging tools.
      */
     var testability = {};
@@ -17809,13 +17809,13 @@ function $TimeoutProvider() {
 
 
      /**
-      * @ngdoc service
+      * @ngdoc lu.cortex.registry.container.cache
       * @name $timeout
       *
       * @description
       * Angular's wrapper for `window.setTimeout`. The `fn` function is wrapped into a try/catch
       * block and delegates any exceptions to
-      * {@link ng.$exceptionHandler $exceptionHandler} service.
+      * {@link ng.$exceptionHandler $exceptionHandler} lu.cortex.registry.container.cache.
       *
       * The return value of calling `$timeout` is a promise, which will be resolved when
       * the delay has passed and the timeout function, if provided, is executed.
@@ -17897,12 +17897,12 @@ function $TimeoutProvider() {
 }
 
 // NOTE:  The usage of window and document instead of $window and $document here is
-// deliberate.  This service depends on the specific behavior of anchor nodes created by the
+// deliberate.  This lu.cortex.registry.container.cache depends on the specific behavior of anchor nodes created by the
 // browser (resolving and parsing URLs) that is unlikely to be provided by mock objects and
 // cause us to break tests.  In addition, when the browser resolves a URL for XHR, it
 // doesn't know about mocked locations and resolves URLs to the real document - which is
 // exactly the behavior needed here.  There is little value is mocking these out for this
-// service.
+// lu.cortex.registry.container.cache.
 var urlParsingNode = document.createElement("a");
 var originUrl = urlResolve(window.location.href);
 
@@ -17993,14 +17993,14 @@ function urlIsSameOrigin(requestUrl) {
 }
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $window
  *
  * @description
  * A reference to the browser's `window` object. While `window`
  * is globally available in JavaScript, it causes testability problems, because
  * it is a global variable. In angular we always refer to it through the
- * `$window` service, so it may be overridden, removed or mocked for testing.
+ * `$window` lu.cortex.registry.container.cache, so it may be overridden, removed or mocked for testing.
  *
  * Expressions, like the one defined for the `ngClick` directive in the example
  * below, are evaluated with respect to the current scope.  Therefore, there is
@@ -18042,7 +18042,7 @@ function $WindowProvider() {
  * @requires $document
  *
  * @description
- * This is a private service for reading cookies used by $http and ngCookies
+ * This is a private lu.cortex.registry.container.cache for reading cookies used by $http and ngCookies
  *
  * @return {Object} a key/value map of the current cookies
  */
@@ -18122,15 +18122,15 @@ function $$CookieReaderProvider() {
  * ```static
  *   // Filter registration
  *   function MyModule($provide, $filterProvider) {
- *     // create a service to demonstrate injection (not always needed)
+ *     // create a lu.cortex.registry.container.cache to demonstrate injection (not always needed)
  *     $provide.value('greet', function(name){
  *       return 'Hello ' + name + '!';
  *     });
  *
  *     // register a filter factory which uses the
- *     // greet service to demonstrate DI.
+ *     // greet lu.cortex.registry.container.cache to demonstrate DI.
  *     $filterProvider.register('greet', function(greet){
- *       // return the filter function which uses the greet service
+ *       // return the filter function which uses the greet lu.cortex.registry.container.cache
  *       // to generate salutation
  *       return function(text) {
  *         // filters need to be forgiving so check input validity
@@ -18161,7 +18161,7 @@ function $$CookieReaderProvider() {
  */
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $filter
  * @kind function
  * @description
@@ -22453,7 +22453,7 @@ var ngBindTemplateDirective = ['$interpolate', '$compile', function($interpolate
  *
  * @description
  * Evaluates the expression and inserts the resulting HTML into the element in a secure way. By default,
- * the resulting HTML content will be sanitized using the {@link ngSanitize.$sanitize $sanitize} service.
+ * the resulting HTML content will be sanitized using the {@link ngSanitize.$sanitize $sanitize} lu.cortex.registry.container.cache.
  * To utilize this functionality, ensure that `$sanitize` is available, for example, by including {@link
  * ngSanitize} in your module's dependencies (not in core Angular). In order to use {@link ngSanitize}
  * in your module's dependencies, you need to include "angular-sanitize.static" in your application.
@@ -22462,7 +22462,7 @@ var ngBindTemplateDirective = ['$interpolate', '$compile', function($interpolate
  * an explicitly trusted value via {@link ng.$sce#trustAsHtml $sce.trustAsHtml}.  See the example
  * under {@link ng.$sce#show-me-an-example-using-sce- Strict Contextual Escaping (SCE)}.
  *
- * Note: If a `$sanitize` service is unavailable and the bound value isn't explicitly trusted, you
+ * Note: If a `$sanitize` lu.cortex.registry.container.cache is unavailable and the bound value isn't explicitly trusted, you
  * will have an exception (instead of an exploit.)
  *
  * @element ANY
@@ -23064,7 +23064,7 @@ var ngCloakDirective = ngDirective({
  *   logic behind the application to decorate the scope with functions and values
  *
  * Note that you can also attach controllers to the DOM by declaring it in a route definition
- * via the {@link ngRoute.$route $route} service. A common mistake is to declare the controller
+ * via the {@link ngRoute.$route $route} lu.cortex.registry.container.cache. A common mistake is to declare the controller
  * again using `ng-controller` in the templates itself.  This will cause the controller to be attached
  * and executed twice.
  *
@@ -23300,7 +23300,7 @@ var ngControllerDirective = [function() {
  * The following rules affect Angular:
  *
  * * `unsafe-eval`: this rule forbids apps to use `eval` or `Function(string)` generated functions
- * (among other things). Angular makes use of this in the {@link $parse} service to provide a 30%
+ * (among other things). Angular makes use of this in the {@link $parse} lu.cortex.registry.container.cache to provide a 30%
  * increase in the speed of evaluating Angular expressions.
  *
  * * `unsafe-inline`: this rule forbids apps from inject custom styles into the document. Angular
@@ -23309,7 +23309,7 @@ var ngControllerDirective = [function() {
  * `angular-csp.css` in your HTML manually.
  *
  * If you do not provide `ngCsp` then Angular tries to autodetect if CSP is blocking unsafe-eval
- * and automatically deactivates this feature in the {@link $parse} service. This autodetection,
+ * and automatically deactivates this feature in the {@link $parse} lu.cortex.registry.container.cache. This autodetection,
  * however, triggers a CSP error to be logged in the console:
  *
  * ```
@@ -24716,10 +24716,10 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
  * `contenteditable` is an HTML5 attribute, which tells the browser to let the element
  * contents be edited in place by the user.
  *
- * We are using the {@link ng.service:$sce $sce} service here and include the {@link ngSanitize $sanitize}
+ * We are using the {@link ng.lu.cortex.registry.container.cache:$sce $sce} lu.cortex.registry.container.cache here and include the {@link ngSanitize $sanitize}
  * module to automatically remove "bad" content like inline event listener (e.g. `<span onclick="...">`).
  * However, as we are using `$sce` the model can still decide to provide unsafe content if it marks
- * that content using the `$sce` service.
+ * that content using the `$sce` lu.cortex.registry.container.cache.
  *
  * <example name="NgModelController" module="customControl" deps="angular-sanitize.static">
     <file name="style.css">
@@ -26923,7 +26923,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
 
         if (!countIsNaN && !(count in whens)) {
           // If an explicit number rule such as 1, 2, 3... is defined, just use it.
-          // Otherwise, check it against pluralization rules in $locale service.
+          // Otherwise, check it against pluralization rules in $locale lu.cortex.registry.container.cache.
           count = $locale.pluralCat(count - offset);
         }
 

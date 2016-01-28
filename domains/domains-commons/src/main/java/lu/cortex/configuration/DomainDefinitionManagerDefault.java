@@ -1,18 +1,20 @@
 package lu.cortex.configuration;
 
 import lu.cortex.annotation.*;
+import lu.cortex.async.DomainSender;
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
 import lu.cortex.endpoints.EndpointPath;
 import lu.cortex.spi.DomainDefinition;
 import lu.cortex.spi.ServiceSpi;
-import lu.cortex.spi.ServiceSpiDefault;
-import lu.cortex.spi.ServiceType;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
@@ -20,15 +22,15 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Stream;
-import com.sun.xml.internal.ws.addressing.EndpointReferenceUtil;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Component loads initially the domain at start-up. In using spring property,
  *  all business configurations (@see DomainConfiguration, AsyncProcessName, etc..)
  */
 @Component
-public class DomainDefinitionExporter implements InitializingBean, BeanFactoryAware {
+public class DomainDefinitionManagerDefault implements InitializingBean, BeanFactoryAware, DomainDefinitionManager {
 
     // Reference on the domain configuration.
     private Map<String, Object> domain = new ConcurrentHashMap<>();
@@ -39,32 +41,40 @@ public class DomainDefinitionExporter implements InitializingBean, BeanFactoryAw
 
     private Map<String, MethodInvokingFactoryBean> asyncProcesses = new ConcurrentHashMap<>();
 
+    private DomainDefinitionReader reader = new DomainDefinitionReader();
+
     private ListableBeanFactory beanFactory;
+
+    @Autowired
+    private DomainSender domainSender;
+
+    @Autowired
+    @Qualifier("registry.install.endpoint")
+    private Endpoint registryInstallEndpoint;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        domain.putAll(beanFactory.getBeansWithAnnotation(DomainConfiguration.class));
+        this.domain.putAll(this.beanFactory.getBeansWithAnnotation(DomainConfiguration.class));
         final String domainName = getDomainName();
-        initProcess(beanFactory.getBeansWithAnnotation(ProcessName.class), domainName);
-        initAsyncProcess(beanFactory.getBeansWithAnnotation(AsyncProcessName.class), domainName);
+        this.processes.putAll(this.reader.extractProcess(this.beanFactory.getBeansWithAnnotation(ProcessName.class), domainName));
+        this.asyncProcesses.putAll(this.reader.extractAsyncProcess(this.beanFactory.getBeansWithAnnotation(AsyncProcessName.class), domainName));
+        services.addAll(this.reader.extractServiceSpi(this.processes, this.asyncProcesses));
+        exportDomainDefinition();
     }
 
-    protected void initProcess(final Map<String, Object> beans, final String domain) {
-        beans.entrySet().stream()
-            .forEach(e -> {
-                processes.putAll(createInvokingBeans(e, domain, ProcessName.class, Reference.class));
-            });
-    }
-
-    protected void initAsyncProcess(final Map<String, Object> beans, final String domain) {
-        beans.entrySet().stream()
-            .forEach(e -> {
-                asyncProcesses.putAll(createInvokingBeans(e, domain, AsyncProcessName.class, OnMessage.class));
-            });
-    }
-
-    public List<Endpoint> getEndpointIfExisting() {
-        return new ArrayList<>();
+    protected void exportDomainDefinition() {
+        final ExecutorService pool = Executors.newFixedThreadPool(1);
+        Runtime.getRuntime().addShutdownHook(new Thread(){
+            @Override
+            public void run() {
+                if (pool != null) {
+                    pool.shutdown();
+                }
+            }
+        });
+        final DomainDefinitionExporterTask task = new DomainDefinitionExporterTask(getRegistryInstallEndpoint(), this, getDomainSender());
+        //Callable<?> runTask = () -> (task.run());
+        pool.submit(() -> task.run());
     }
 
     public Object executeAsyncProcess(final Endpoint endpoint, Object...args) {
@@ -81,44 +91,6 @@ public class DomainDefinitionExporter implements InitializingBean, BeanFactoryAw
         }catch(final Exception ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    public Map<String, MethodInvokingFactoryBean> createInvokingBeans(
-            Map.Entry entry,
-            String domain,
-            Class<? extends Annotation> pT,
-            Class<? extends Annotation> rT) {
-        try {
-            final Map<String, MethodInvokingFactoryBean> result = new HashMap<>();
-            final Annotation processAnnotation = entry.getValue().getClass().getAnnotation(pT);
-            final ServiceSpi serviceSpi = new ServiceSpiDefault(getName(processAnnotation));
-            Stream.of(entry.getValue().getClass().getDeclaredMethods())
-                .filter(m -> m.isAnnotationPresent(rT))
-                .forEach(m -> {
-                    final MethodInvokingFactoryBean mBean = createFactory(entry);
-                    final Annotation resultAnnotation = m.getAnnotation(rT);
-                    mBean.setTargetObject(entry.getValue());
-                    mBean.setTargetMethod(m.getName());
-                    result.put(EndpointPath.buildPath(domain,
-                                getName(processAnnotation),
-                                getName(resultAnnotation)),
-                            mBean);
-                    serviceSpi.addReference(m.getName());
-                });
-            if (!serviceSpi.getReferences().isEmpty()) {
-                services.add(serviceSpi);
-            }
-            return result;
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static protected MethodInvokingFactoryBean createFactory(Map.Entry entry) {
-        final MethodInvokingFactoryBean mBean = new MethodInvokingFactoryBean();
-        final Class<?> beanType = entry.getValue().getClass();
-        mBean.setTargetObject(entry.getValue());
-        return mBean;
     }
 
     public DomainDefinition getDomainDefinition() {
@@ -145,11 +117,6 @@ public class DomainDefinitionExporter implements InitializingBean, BeanFactoryAw
             @Override
             public List<ServiceSpi> getServices() {
                 return services;
-            }
-
-            @Override
-            public List<ServiceSpi> getServiceByType(ServiceType type) {
-                return null;
             }
         };
     }
@@ -196,6 +163,22 @@ public class DomainDefinitionExporter implements InitializingBean, BeanFactoryAw
     }
     public Map<String, MethodInvokingFactoryBean> getAsyncProcesses() {
         return this.asyncProcesses;
+    }
+
+    public Endpoint getRegistryInstallEndpoint() {
+        return registryInstallEndpoint;
+    }
+
+    public void setRegistryInstallEndpoint(Endpoint registryInstallEndpoint) {
+        this.registryInstallEndpoint = registryInstallEndpoint;
+    }
+
+    public DomainSender getDomainSender() {
+        return domainSender;
+    }
+
+    public void setDomainSender(DomainSender domainSender) {
+        this.domainSender = domainSender;
     }
 
     @Override

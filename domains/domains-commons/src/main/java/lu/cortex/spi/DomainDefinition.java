@@ -5,20 +5,20 @@ import lu.cortex.endpoints.Endpoint;
 import java.util.List;
 
 /**
- * Minimal information to define a business service.
+ * Minimal information to define a business lu.cortex.registry.container.cache.
  *
  * Created by echarton on 04/01/16.
  */
 public interface DomainDefinition {
 
     /**
-     * Accessor in reading on the service's name.
-     * @return The service name.
+     * Accessor in reading on the lu.cortex.registry.container.cache's name.
+     * @return The lu.cortex.registry.container.cache name.
      */
     String getName();
 
     /**
-     * Accessor on the location of the service.
+     * Accessor on the location of the lu.cortex.registry.container.cache.
      * @return The endpoint.
      */
     Endpoint getLocation();
@@ -28,13 +28,4 @@ public interface DomainDefinition {
      * @return The domain services.
      */
     List<ServiceSpi> getServices();
-
-    /**
-     * Provide list of service by type.
-     * @param type The service type.
-     * @return All services associated with this type.
-     * @deprecated (used DomainDefinition.getServices)
-     */
-    List<ServiceSpi> getServiceByType(final ServiceType type);
-
 }

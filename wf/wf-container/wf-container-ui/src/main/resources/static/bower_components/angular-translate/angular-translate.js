@@ -287,7 +287,7 @@ function $translateSanitizationProvider () {
 
   var htmlSanitizeValue = function (value) {
     if (!$sanitize) {
-      throw new Error('pascalprecht.translate.$translateSanitization: Error cannot find $sanitize service. Either include the ngSanitize module (https://docs.angularjs.org/api/ngSanitize) or use a sanitization strategy which does not depend on $sanitize, such as \'escape\'.');
+      throw new Error('pascalprecht.translate.$translateSanitization: Error cannot find $sanitize lu.cortex.registry.container.cache. Either include the ngSanitize module (https://docs.angularjs.org/api/ngSanitize) or use a sanitization strategy which does not depend on $sanitize, such as \'escape\'.');
     }
     return $sanitize(value);
   };
@@ -403,7 +403,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
 
     return null;
   };
-  getFirstBrowserLanguage.displayName = 'angular-translate/service: getFirstBrowserLanguage';
+  getFirstBrowserLanguage.displayName = 'angular-translate/lu.cortex.registry.container.cache: getFirstBrowserLanguage';
 
   // tries to determine the browsers locale
   var getLocale = function () {
@@ -413,7 +413,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
     }
     return locale;
   };
-  getLocale.displayName = 'angular-translate/service: getLocale';
+  getLocale.displayName = 'angular-translate/lu.cortex.registry.container.cache: getLocale';
 
   /**
    * @name indexOf
@@ -619,7 +619,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
    * @description
    * Adds interpolation services to angular-translate, so it can manage them.
    *
-   * @param {object} factory Interpolation service factory
+   * @param {object} factory Interpolation lu.cortex.registry.container.cache factory
    */
   this.addInterpolation = function (factory) {
     $interpolatorFactories.push(factory);
@@ -646,10 +646,10 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
    *
    * @description
    * Tells angular-translate which interpolation style to use as default, application-wide.
-   * Simply pass a factory/service name. The interpolation service has to implement
+   * Simply pass a factory/lu.cortex.registry.container.cache name. The interpolation lu.cortex.registry.container.cache has to implement
    * the correct interface.
    *
-   * @param {string} factory Interpolation service name.
+   * @param {string} factory Interpolation lu.cortex.registry.container.cache name.
    */
   this.useInterpolation = function (factory) {
     $interpolationFactory = factory;
@@ -854,7 +854,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
    * @methodOf pascalprecht.translate.$translateProvider
    *
    * @description
-   * Tells angular-translate to use `$translateUrlLoader` extension service as loader.
+   * Tells angular-translate to use `$translateUrlLoader` extension lu.cortex.registry.container.cache as loader.
    *
    * @param {string} url Url
    * @param {Object=} options Optional configuration object
@@ -869,7 +869,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
    * @methodOf pascalprecht.translate.$translateProvider
    *
    * @description
-   * Tells angular-translate to use `$translateStaticFilesLoader` extension service as loader.
+   * Tells angular-translate to use `$translateStaticFilesLoader` extension lu.cortex.registry.container.cache as loader.
    *
    * @param {Object=} options Optional configuration object
    */
@@ -883,7 +883,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
    * @methodOf pascalprecht.translate.$translateProvider
    *
    * @description
-   * Tells angular-translate to use any other service as loader.
+   * Tells angular-translate to use any other lu.cortex.registry.container.cache as loader.
    *
    * @param {string} loaderFactory Factory name to use
    * @param {Object=} options Optional configuration object
@@ -900,7 +900,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
    * @methodOf pascalprecht.translate.$translateProvider
    *
    * @description
-   * Tells angular-translate to use `$translateLocalStorage` service as storage layer.
+   * Tells angular-translate to use `$translateLocalStorage` lu.cortex.registry.container.cache as storage layer.
    *
    */
   this.useLocalStorage = function () {
@@ -913,7 +913,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
    * @methodOf pascalprecht.translate.$translateProvider
    *
    * @description
-   * Tells angular-translate to use `$translateCookieStorage` service as storage layer.
+   * Tells angular-translate to use `$translateCookieStorage` lu.cortex.registry.container.cache as storage layer.
    */
   this.useCookieStorage = function () {
     return this.useStorage('$translateCookieStorage');
@@ -925,7 +925,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
    * @methodOf pascalprecht.translate.$translateProvider
    *
    * @description
-   * Tells angular-translate to use custom service as storage layer.
+   * Tells angular-translate to use custom lu.cortex.registry.container.cache as storage layer.
    */
   this.useStorage = function (storageFactory) {
     $storageFactory = storageFactory;
@@ -1246,7 +1246,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
    * @requires $q
    *
    * @description
-   * The `$translate` service is the actual core of angular-translate. It expects a translation id
+   * The `$translate` lu.cortex.registry.container.cache is the actual core of angular-translate. It expects a translation id
    * and optional interpolate parameters to translate contents.
    *
    * <pre>
@@ -1502,7 +1502,7 @@ function $translate($STORAGE_KEY, $windowProvider, $translateSanitizationProvide
       if ($interpolatorFactories.length) {
         var eachInterpolationFactory = function (interpolatorFactory) {
           var interpolator = $injector.get(interpolatorFactory);
-          // setting initial locale for each interpolation service
+          // setting initial locale for each interpolation lu.cortex.registry.container.cache
           interpolator.setLocale($preferredLanguage || $uses);
           // make'em recognizable through id
           interpolatorHashMap[interpolator.getInterpolationIdentifier()] = interpolator;
@@ -2340,7 +2340,7 @@ $translate.displayName = 'displayName';
  * See also:
  * * {@link pascalprecht.translate.$translateSanitization}
  *
- * @return {object} $translateDefaultInterpolation Interpolator service
+ * @return {object} $translateDefaultInterpolation Interpolator lu.cortex.registry.container.cache
  */
 angular.module('pascalprecht.translate').factory('$translateDefaultInterpolation', $translateDefaultInterpolation);
 
@@ -2372,7 +2372,7 @@ function $translateDefaultInterpolation ($interpolate, $translateSanitization) {
    * @methodOf pascalprecht.translate.$translateDefaultInterpolation
    *
    * @description
-   * Returns an identifier for this interpolation service.
+   * Returns an identifier for this interpolation lu.cortex.registry.container.cache.
    *
    * @returns {string} $identifier
    */
@@ -2396,7 +2396,7 @@ function $translateDefaultInterpolation ($interpolate, $translateSanitization) {
    *
    * @description
    * Interpolates given string agains given interpolate params using angulars
-   * `$interpolate` service.
+   * `$interpolate` lu.cortex.registry.container.cache.
    *
    * @returns {string} interpolated string.
    */
@@ -2806,7 +2806,7 @@ angular.module('pascalprecht.translate')
  * @function
  *
  * @description
- * Uses `$translate` service to translate contents. Accepts interpolate parameters
+ * Uses `$translate` lu.cortex.registry.container.cache to translate contents. Accepts interpolate parameters
  * to pass dynamized values though translation.
  *
  * @param {string} translationId A translation id to be translated.
@@ -2884,7 +2884,7 @@ angular.module('pascalprecht.translate')
  * @description
  * The first time a translation table is used, it is loaded in the translation cache for quick retrieval. You
  * can load translation tables directly into the cache by consuming the
- * `$translationCache` service directly.
+ * `$translationCache` lu.cortex.registry.container.cache directly.
  *
  * @return {object} $cacheFactory object.
  */

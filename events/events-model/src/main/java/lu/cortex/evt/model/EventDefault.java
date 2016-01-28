@@ -20,7 +20,7 @@ public class EventDefault implements Event {
     @Override
     public String toString() {
         final StringBuffer buffer = new StringBuffer("event={");
-        buffer.append("(from):" + this.from+"->(to):" + this.to);
+        buffer.append("(from):" + this.from + "->(to):" + this.to);
         buffer.append(" , body:" + this.body);
         buffer.append("}");
         return buffer.toString();
@@ -28,20 +28,20 @@ public class EventDefault implements Event {
 
     @Override
     public EndpointDefault getOrigin() {
-        return to;
+        return this.from;
     }
 
-    public void setOrigin(EndpointDefault to) {
-        this.to = (EndpointDefault) to;
+    public void setOrigin(EndpointDefault from) {
+        this.from = (EndpointDefault) from;
     }
 
     @Override
     public EndpointDefault getDestination() {
-        return from;
+        return this.to;
     }
 
-    public void setDestination(EndpointDefault from) {
-        this.from = (EndpointDefault) from;
+    public void setDestination(EndpointDefault to) {
+        this.to = (EndpointDefault) to;
     }
 
     @Override

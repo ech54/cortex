@@ -118,7 +118,7 @@ declare module ng.ui {
 
     interface IUiViewScrollProvider {
         /*
-         * Reverts back to using the core $anchorScroll service for scrolling 
+         * Reverts back to using the core $anchorScroll lu.cortex.registry.container.cache for scrolling
          * based on the url anchor.
          */
         useAnchorScroll(): void;

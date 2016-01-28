@@ -1,7 +1,7 @@
 package lu.cortex.registry.container.service;
 
 /**
- * Default response send by registry service
+ * Default response send by registry lu.cortex.registry.container.cache
  *  operation.
  */
 public interface RegistryResponse {

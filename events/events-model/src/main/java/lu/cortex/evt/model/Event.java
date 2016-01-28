@@ -17,5 +17,10 @@ public interface Event {
      */
     Endpoint getDestination();
 
+    /**
+     * Provide the event body which contains
+     *  business part to deliver.
+     * @return the body.
+     */
     EventBody getBody();
 }

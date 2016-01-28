@@ -1,6 +1,7 @@
 package lu.cortex.registry.container.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.spi.DomainDefinition;
@@ -17,7 +18,7 @@ public interface ServiceRegistry {
      * @param domain The <code>DomainDefinition</code> to install.
      * @return <code>Indicate</code> if the domain has been installed.
      */
-    boolean installDomain(final DomainDefinition domain);
+    void installDomain(final DomainDefinition domain);
 
     /**
      * Method indicates if the domain's name is existing.
@@ -25,7 +26,7 @@ public interface ServiceRegistry {
      * @return <code>true</code> if the domain has been removed,
      *  else <code>false</code>.
      */
-    boolean removeDomain(final String name);
+    void removeDomain(final String name);
 
     /**
      * Method indicates if the domain is existing in the registry.
@@ -40,14 +41,7 @@ public interface ServiceRegistry {
      * @param name The domain name.
      * @return The corresponding domain definition.
      */
-    DomainDefinition getDomain(final String name);
-
-    /**
-     * Provide the <code>DomainDefinition</code> based on its endpoint.
-     * @param endpoint The endpoint which references the domain definition.
-     * @return The corresponding domain definition.
-     */
-    DomainDefinition getDomain(final Endpoint endpoint);
+    Optional<DomainDefinition> getDomain(final String name);
 
     /**
      * Provide the full domain list available in the registry.
@@ -56,7 +50,7 @@ public interface ServiceRegistry {
     List<DomainDefinition> getAllDomains();
 
     /**
-     * Provide the full service spi list based on the domain
+     * Provide the full lu.cortex.registry.container.cache spi list based on the domain
      *  name provide in argument.
      * @param name The domain name.
      * @return The list of services.

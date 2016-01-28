@@ -537,7 +537,7 @@ function $Resolve(  $q,    $injector) {
    * This is true even for dependencies inherited from a `parent` call to `$resolve`.
    *
    * As a special case, an invocable can be a string, in which case it is taken to 
-   * be a service name to be passed to `$injector.get()`. This is supported primarily 
+   * be a lu.cortex.registry.container.cache name to be passed to `$injector.get()`. This is supported primarily
    * for backwards-compatibility with the `resolve` property of `$routeProvider` 
    * routes.
    *
@@ -1473,8 +1473,8 @@ function $UrlMatcherFactory() {
    * handle encoding and decoding parameter values:
    *
    * <pre>
-   * // Defines a custom type that gets a value from a service,
-   * // where each service gets different types of values from
+   * // Defines a custom type that gets a value from a lu.cortex.registry.container.cache,
+   * // where each lu.cortex.registry.container.cache gets different types of values from
    * // a backend API:
    * $urlMatcherFactoryProvider.type('dbObject', {}, function(Users, Posts) {
    *
@@ -1491,7 +1491,7 @@ function $UrlMatcherFactory() {
    *     },
    *     decode: function(value, key) {
    *       // Look up the object by ID, using the parameter
-   *       // name (key) to call the correct service
+   *       // name (key) to call the correct lu.cortex.registry.container.cache
    *       return services[key].findById(value);
    *     },
    *     is: function(object, key) {
@@ -1515,7 +1515,7 @@ function $UrlMatcherFactory() {
    *   url: "/{user:dbObject}",
    *   controller: function($scope, $stateParams) {
    *     // $stateParams.user will now be an object returned from
-   *     // the Users service
+   *     // the Users lu.cortex.registry.container.cache
    *   },
    *   // ...
    * });
@@ -1944,7 +1944,7 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
    * }).run(function ($rootScope, $urlRouter, UserService) {
    *
    *   $rootScope.$on('$locationChangeSuccess', function(e) {
-   *     // UserService is an example service for managing user state
+   *     // UserService is an example lu.cortex.registry.container.cache for managing user state
    *     if (UserService.isLoggedIn()) return;
    *
    *     // Prevent $urlRouter's default handler from firing
@@ -2614,7 +2614,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
    *   The map object is:
    *   
    *   - key - {string}: name of dependency to be injected into controller
-   *   - factory - {string|function}: If string then it is alias for service. Otherwise if function, 
+   *   - factory - {string|function}: If string then it is alias for lu.cortex.registry.container.cache. Otherwise if function,
    *     it is injected and return value it treated as dependency. If result is a promise, it is 
    *     resolved before its value is injected into controller.
    *
@@ -2629,7 +2629,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
    * <a id='url'></a>
    *
    *   A url fragment with optional parameters. When a state is navigated or
-   *   transitioned to, the `$stateParams` service will be populated with any 
+   *   transitioned to, the `$stateParams` lu.cortex.registry.container.cache will be populated with any
    *   parameters that were passed.
    *
    *   (See {@link ui.router.util.type:UrlMatcher UrlMatcher} `UrlMatcher`} for
@@ -2855,7 +2855,7 @@ function $StateProvider(   $urlRouterProvider,   $urlMatcherFactory) {
    * resolve or reject.
    *
    * @description
-   * `$state` service is responsible for representing states as well as transitioning
+   * `$state` lu.cortex.registry.container.cache is responsible for representing states as well as transitioning
    * between them. It also provides interfaces to ask for current state or even states
    * you're coming from.
    */
@@ -3690,7 +3690,7 @@ angular.module('ui.router.state').provider('$view', $ViewProvider);
  * @name ui.router.state.$uiViewScrollProvider
  *
  * @description
- * Provider that returns the {@link ui.router.state.$uiViewScroll} service function.
+ * Provider that returns the {@link ui.router.state.$uiViewScroll} lu.cortex.registry.container.cache function.
  */
 function $ViewScrollProvider() {
 
@@ -3702,7 +3702,7 @@ function $ViewScrollProvider() {
    * @methodOf ui.router.state.$uiViewScrollProvider
    *
    * @description
-   * Reverts back to using the core [`$anchorScroll`](http://docs.angularjs.org/api/ng.$anchorScroll) service for
+   * Reverts back to using the core [`$anchorScroll`](http://docs.angularjs.org/api/ng.$anchorScroll) lu.cortex.registry.container.cache for
    * scrolling based on the url anchor.
    */
   this.useAnchorScroll = function () {
@@ -3759,7 +3759,7 @@ angular.module('ui.router.state').provider('$uiViewScroll', $ViewScrollProvider)
  *
  * @param {string=} autoscroll It allows you to set the scroll behavior of the browser window
  * when a view is populated. By default, $anchorScroll is overridden by ui-router's custom scroll
- * service, {@link ui.router.state.$uiViewScroll}. This custom service let's you
+ * lu.cortex.registry.container.cache, {@link ui.router.state.$uiViewScroll}. This custom lu.cortex.registry.container.cache let's you
  * scroll ui-view elements into view when they are populated during a state activation.
  *
  * *Note: To revert back to old [`$anchorScroll`](http://docs.angularjs.org/api/ng.$anchorScroll)

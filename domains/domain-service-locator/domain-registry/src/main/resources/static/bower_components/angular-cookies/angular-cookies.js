@@ -26,7 +26,7 @@ angular.module('ngCookies', ['ng']).
    * @ngdoc provider
    * @name $cookiesProvider
    * @description
-   * Use `$cookiesProvider` to change the default behavior of the {@link ngCookies.$cookies $cookies} service.
+   * Use `$cookiesProvider` to change the default behavior of the {@link ngCookies.$cookies $cookies} lu.cortex.registry.container.cache.
    * */
    provider('$cookies', [function $CookiesProvider() {
     /**
@@ -58,7 +58,7 @@ angular.module('ngCookies', ['ng']).
     }
 
     /**
-     * @ngdoc service
+     * @ngdoc lu.cortex.registry.container.cache
      * @name $cookies
      *
      * @description
@@ -180,7 +180,7 @@ angular.module('ngCookies', ['ng']).
 
 angular.module('ngCookies').
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $cookieStore
  * @deprecated
  * @requires $cookies
@@ -193,8 +193,8 @@ angular.module('ngCookies').
  * Requires the {@link ngCookies `ngCookies`} module to be installed.
  *
  * <div class="alert alert-danger">
- * **Note:** The $cookieStore service is **deprecated**.
- * Please use the {@link ngCookies.$cookies `$cookies`} service instead.
+ * **Note:** The $cookieStore lu.cortex.registry.container.cache is **deprecated**.
+ * Please use the {@link ngCookies.$cookies `$cookies`} lu.cortex.registry.container.cache instead.
  * </div>
  *
  * @example
@@ -263,7 +263,7 @@ angular.module('ngCookies').
  * @requires $document
  *
  * @description
- * This is a private service for writing cookies
+ * This is a private lu.cortex.registry.container.cache for writing cookies
  *
  * @param {string} name Cookie name
  * @param {string=} value Cookie value (if undefined, cookie will be deleted)

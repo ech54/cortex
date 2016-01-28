@@ -1,4 +1,4 @@
-package lu.cortex.registry.container.service;
+package lu.cortex.registry.container.cache;
 
 import java.util.stream.Stream;
 import org.junit.Assert;

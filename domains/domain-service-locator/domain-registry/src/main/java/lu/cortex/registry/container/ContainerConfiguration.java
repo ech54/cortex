@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @SpringBootApplication
 @ComponentScan()
-//@Import(CommonConfig.class)
 @EnableAutoConfiguration
 public class ContainerConfiguration extends WebMvcConfigurerAdapter {
 

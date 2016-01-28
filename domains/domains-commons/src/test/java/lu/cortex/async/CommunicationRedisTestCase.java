@@ -16,7 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lu.cortex.configuration.DomainCommonConfiguration;
-import lu.cortex.configuration.DomainDefinitionExporter;
+import lu.cortex.configuration.DomainDefinitionManagerDefault;
 import lu.cortex.endpoints.EndpointDefault;
 import lu.cortex.evt.model.Event;
 import lu.cortex.evt.model.EventBuilder;
@@ -34,7 +34,7 @@ public class CommunicationRedisTestCase {
         @Configuration
         @Import(value = {DomainCommonConfiguration.class})
         @ComponentScan(basePackageClasses = {
-                DomainDefinitionExporter.class, DomainListener.class})
+                DomainDefinitionManagerDefault.class, DomainListener.class})
         public static class TestingConf {
 
             @Bean

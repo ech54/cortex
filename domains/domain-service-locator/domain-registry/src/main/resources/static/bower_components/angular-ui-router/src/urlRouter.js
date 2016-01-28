@@ -223,7 +223,7 @@ function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
    * }).run(function ($rootScope, $urlRouter, UserService) {
    *
    *   $rootScope.$on('$locationChangeSuccess', function(e) {
-   *     // UserService is an example service for managing user state
+   *     // UserService is an example lu.cortex.registry.container.cache for managing user state
    *     if (UserService.isLoggedIn()) return;
    *
    *     // Prevent $urlRouter's default handler from firing

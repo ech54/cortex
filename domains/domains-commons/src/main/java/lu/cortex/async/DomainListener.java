@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lu.cortex.configuration.DomainDefinitionExporter;
+import lu.cortex.configuration.DomainDefinitionManagerDefault;
 import lu.cortex.evt.model.Event;
 import lu.cortex.evt.model.EventDefault;
 
@@ -22,7 +22,7 @@ public class DomainListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(DomainListener.class);
 
     @Autowired
-    private DomainDefinitionExporter domainDefinitionExporter;
+    private DomainDefinitionManagerDefault domainDefinitionManagerDefault;
 
     /**
      * Method is automatically calls by redis message listener.
@@ -36,8 +36,8 @@ public class DomainListener {
             final ObjectMapper mapper = new ObjectMapper();
             final Event event = mapper.readValue(message, EventDefault.class);
             Objects.nonNull(event);
-            LOGGER.debug("Translate to event: <" + event + ">");
-            domainDefinitionExporter.executeAsyncProcess(event.getOrigin(), event);
+            LOGGER.info("Translate to event: <" + event + ">");
+            domainDefinitionManagerDefault.executeAsyncProcess(event.getOrigin(), event);
         } catch(final IOException exception) {
             throw new RuntimeException(exception);
         }

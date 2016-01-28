@@ -13,22 +13,22 @@ public class EventBuilder {
 
     public static EventBuilder from(final Endpoint from) {
         final EventBuilder builder = new EventBuilder();
-        builder.event.setDestination((EndpointDefault) from);
+        builder.event.setOrigin((EndpointDefault) from);
         return builder;
     }
     public EventBuilder from(final String system, final String path) {
-        this.event.setDestination(new EndpointDefault(system, path));
+        this.event.setOrigin(new EndpointDefault(system, path));
         return this;
     }
 
     public static EventBuilder to(final Endpoint to) {
         final EventBuilder builder = new EventBuilder();
-        builder.event.setOrigin((EndpointDefault) to);
+        builder.event.setDestination((EndpointDefault) to);
         return builder;
     }
 
     public EventBuilder to(final String system, final String path) {
-        this.event.setOrigin(new EndpointDefault(system, path));
+        this.event.setDestination(new EndpointDefault(system, path));
         return this;
     }
 

@@ -1,7 +1,6 @@
 
 package lu.cortex.configuration;
 
-import lu.cortex.async.DomainListener;
 import lu.cortex.endpoints.EndpointDefault;
 import lu.cortex.evt.model.EventBuilder;
 import lu.cortex.evt.model.EventType;
@@ -26,12 +25,12 @@ public class DomainConfigurerExporterTest {
     private Logger logger = LoggerFactory.getLogger(DomainConfigurerExporterTest.class);
 
     @Autowired
-    DomainDefinitionExporter exporter;
+    DomainDefinitionManagerDefault exporter;
 
     @Configuration
     @ComponentScan(basePackageClasses = {
             //DomainConfigurerExporterTest.class,
-            DomainDefinitionExporter.class})
+            DomainDefinitionManagerDefault.class})
     public static class TestingConf {
 
         @Bean

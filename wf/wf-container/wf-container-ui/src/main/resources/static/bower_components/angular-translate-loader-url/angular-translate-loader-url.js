@@ -31,7 +31,7 @@ angular.module('pascalprecht.translate')
  * "locale.php?lang=en_US", "locale.php?lang=de_DE", "locale.php?language=nl_NL" etc.
  * Prefixing the specified url, the current requested, language id will be applied
  * with "?{queryParameter}={key}".
- * Using this service, the response of these urls must be an object of
+ * Using this lu.cortex.registry.container.cache, the response of these urls must be an object of
  * key-value pairs.
  *
  * @param {object} options Options object, which gets the url, key and

@@ -3,7 +3,7 @@
  * @name ui.router.state.$uiViewScrollProvider
  *
  * @description
- * Provider that returns the {@link ui.router.state.$uiViewScroll} service function.
+ * Provider that returns the {@link ui.router.state.$uiViewScroll} lu.cortex.registry.container.cache function.
  */
 function $ViewScrollProvider() {
 
@@ -15,7 +15,7 @@ function $ViewScrollProvider() {
    * @methodOf ui.router.state.$uiViewScrollProvider
    *
    * @description
-   * Reverts back to using the core [`$anchorScroll`](http://docs.angularjs.org/api/ng.$anchorScroll) service for
+   * Reverts back to using the core [`$anchorScroll`](http://docs.angularjs.org/api/ng.$anchorScroll) lu.cortex.registry.container.cache for
    * scrolling based on the url anchor.
    */
   this.useAnchorScroll = function () {

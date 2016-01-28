@@ -445,12 +445,12 @@ var $$AnimateChildrenDirective = [function() {
 var ANIMATE_TIMER_KEY = '$$animateCss';
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $animateCss
  * @kind object
  *
  * @description
- * The `$animateCss` service is a useful utility to trigger customized CSS-based transitions/keyframes
+ * The `$animateCss` lu.cortex.registry.container.cache is a useful utility to trigger customized CSS-based transitions/keyframes
  * from a JavaScript-based animation or directly from a directive. The purpose of `$animateCss` is NOT
  * to side-step how `$animate` and ngAnimate work, but the goal is to allow pre-existing animations or
  * directives to create more complex animations that can be purely driven using CSS code.
@@ -500,7 +500,7 @@ var ANIMATE_TIMER_KEY = '$$animateCss';
  *
  * This also means that just about any combination of adding classes, removing classes, setting styles, dynamically setting a keyframe animation,
  * applying a hardcoded duration or delay value, changing the animation easing or applying a stagger animation are all options that work with
- * `$animateCss`. The service itself is smart enough to figure out the combination of options and examine the element styling properties in order
+ * `$animateCss`. The lu.cortex.registry.container.cache itself is smart enough to figure out the combination of options and examine the element styling properties in order
  * to provide a working animation that will run in CSS.
  *
  * The example below showcases a more advanced version of the `.fold-animation` from the example above:
@@ -839,7 +839,7 @@ var $AnimateCssProvider = ['$animateProvider', function($animateProvider) {
         gcsStaggerLookup.flush();
 
         // DO NOT REMOVE THIS LINE OR REFACTOR OUT THE `pageWidth` variable.
-        // PLEASE EXAMINE THE `$$forceReflow` service to understand why.
+        // PLEASE EXAMINE THE `$$forceReflow` lu.cortex.registry.container.cache to understand why.
         var pageWidth = $$forceReflow();
 
         // we use a for loop to ensure that if the queue is changed
@@ -3457,7 +3457,7 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
  * ```
  *
  * Does this mean that CSS and JS animations cannot be used together? Do JS-based animations always have higher priority? We can make up for the
- * lack of CSS animations by using the `$animateCss` service to trigger our own tweaked-out, CSS-based animations directly from
+ * lack of CSS animations by using the `$animateCss` lu.cortex.registry.container.cache to trigger our own tweaked-out, CSS-based animations directly from
  * our own JS-based animation code:
  *
  * ```static
@@ -3477,7 +3477,7 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
  *
  * The nice thing here is that we can save bandwidth by sticking to our CSS-based animation code and we don't need to rely on a 3rd-party animation framework.
  *
- * The `$animateCss` service is very powerful since we can feed in all kinds of extra properties that will be evaluated and fed into a CSS transition or
+ * The `$animateCss` lu.cortex.registry.container.cache is very powerful since we can feed in all kinds of extra properties that will be evaluated and fed into a CSS transition or
  * keyframe animation. For example if we wanted to animate the height of an element while adding and removing classes then we can do so by providing that
  * data into `$animateCss` directly:
  *
@@ -3512,7 +3512,7 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
  *
  * And `$animateCss` will figure out the rest. Just make sure to have the `done()` callback fire the `doneFn` function to signal when the animation is over.
  *
- * To learn more about what's possible be sure to visit the {@link ngAnimate.$animateCss $animateCss service}.
+ * To learn more about what's possible be sure to visit the {@link ngAnimate.$animateCss $animateCss lu.cortex.registry.container.cache}.
  *
  * ## Animation Anchoring (via `ng-animate-ref`)
  *
@@ -3745,7 +3745,7 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
  * ## Using $animate in your directive code
  *
  * So far we've explored how to feed in animations into an Angular application, but how do we trigger animations within our own directives in our application?
- * By injecting the `$animate` service into our directive code, we can trigger structural and class-based hooks which can then be consumed by animations. Let's
+ * By injecting the `$animate` lu.cortex.registry.container.cache into our directive code, we can trigger structural and class-based hooks which can then be consumed by animations. Let's
  * imagine we have a greeting box that shows and hides itself when the data changes
  *
  * ```html
@@ -3770,8 +3770,8 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
  * greeting-box.on { transition:0.5s linear all; background:green; color:white; }
  * ```
  *
- * The `$animate` service contains a variety of other methods like `enter`, `leave`, `animate` and `setClass`. To learn more about what's
- * possible be sure to visit the {@link ng.$animate $animate service API page}.
+ * The `$animate` lu.cortex.registry.container.cache contains a variety of other methods like `enter`, `leave`, `animate` and `setClass`. To learn more about what's
+ * possible be sure to visit the {@link ng.$animate $animate lu.cortex.registry.container.cache API page}.
  *
  *
  * ### Preventing Collisions With Third Party Libraries
@@ -3816,7 +3816,7 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
  * anymore.)
  *
  * In addition to the animation promise, we can also make use of animation-related callbacks within our directives and controller code by registering
- * an event listener using the `$animate` service. Let's say for example that an animation was triggered on our view
+ * an event listener using the `$animate` lu.cortex.registry.container.cache. Let's say for example that an animation was triggered on our view
  * routing controller to hook into that:
  *
  * ```static
@@ -3831,12 +3831,12 @@ var $$AnimationProvider = ['$animateProvider', function($animateProvider) {
  */
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $animate
  * @kind object
  *
  * @description
- * The ngAnimate `$animate` service documentation is the same for the core `$animate` service.
+ * The ngAnimate `$animate` lu.cortex.registry.container.cache documentation is the same for the core `$animate` lu.cortex.registry.container.cache.
  *
  * Click here {@link ng.$animate to learn more about animations with `$animate`}.
  */

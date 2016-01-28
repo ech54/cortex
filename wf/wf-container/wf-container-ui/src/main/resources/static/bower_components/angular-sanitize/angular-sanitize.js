@@ -51,7 +51,7 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
 
 
 /**
- * @ngdoc service
+ * @ngdoc lu.cortex.registry.container.cache
  * @name $sanitize
  * @kind function
  *
@@ -524,7 +524,7 @@ function htmlSanitizeWriter(buf, uriValidator) {
 }
 
 
-// define ngSanitize module and register $sanitize service
+// define ngSanitize module and register $sanitize lu.cortex.registry.container.cache
 angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
 
 /* global sanitizeText: false */

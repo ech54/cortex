@@ -2311,7 +2311,7 @@ angular.module('ui.bootstrap.modal', [])
   })
 
 /**
- * A helper directive for the $modal service. It creates a backdrop element.
+ * A helper directive for the $modal lu.cortex.registry.container.cache. It creates a backdrop element.
  */
   .directive('modalBackdrop', [
            '$animate', '$injector', '$modalStack',
@@ -3136,7 +3136,7 @@ angular.module('ui.bootstrap.pagination', [])
 angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap.bindHtml' ] )
 
 /**
- * The $tooltip service creates tooltip- and popover-like directives as well as
+ * The $tooltip lu.cortex.registry.container.cache creates tooltip- and popover-like directives as well as
  * houses global options for them.
  */
 .provider( '$tooltip', function () {
@@ -3192,7 +3192,7 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position', 'ui.bootstrap
   }
 
   /**
-   * Returns the actual instance of the $tooltip service.
+   * Returns the actual instance of the $tooltip lu.cortex.registry.container.cache.
    * TODO support multiple triggers
    */
   this.$get = [ '$window', '$compile', '$timeout', '$document', '$position', '$interpolate', '$rootScope', function ( $window, $compile, $timeout, $document, $position, $interpolate, $rootScope ) {
@@ -4622,7 +4622,7 @@ angular.module('ui.bootstrap.transition', [])
 
 .value('$transitionSuppressDeprecated', false)
 /**
- * $transition service provides a consistent interface to trigger CSS 3 transitions and to be informed when they complete.
+ * $transition lu.cortex.registry.container.cache provides a consistent interface to trigger CSS 3 transitions and to be informed when they complete.
  * @param  {DOMElement} element  The DOMElement that will be animated.
  * @param  {string|object|function} trigger  The thing that will cause the transition to start:
  *   - As a string, it represents the css class to be added to the element.
@@ -4711,8 +4711,8 @@ function($q ,  $timeout ,  $rootScope ,  $log ,  $transitionSuppressDeprecated) 
 angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap.bindHtml'])
 
 /**
- * A helper service that can parse typeahead's syntax (string provided by users)
- * Extracted to a separate service for ease of unit testing
+ * A helper lu.cortex.registry.container.cache that can parse typeahead's syntax (string provided by users)
+ * Extracted to a separate lu.cortex.registry.container.cache for ease of unit testing
  */
   .factory('typeaheadParser', ['$parse', function ($parse) {
 

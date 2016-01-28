@@ -1,7 +1,6 @@
 package lu.cortex.registry.container.service.utils;
 
 import java.time.Instant;
-import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -134,6 +133,18 @@ public class LRUinMemoryCache<K, V> {
         try {
             lock.lock();
             cache.remove(key);
+        }
+        finally{
+            lock.unlock();
+        }
+    }
+
+    public List<V> getAll() {
+        try {
+            lock.lock();
+            return cache.values().stream()
+                    .map(LRUInMemoryObject::getValue)
+                    .collect(Collectors.toList());
         }
         finally{
             lock.unlock();
