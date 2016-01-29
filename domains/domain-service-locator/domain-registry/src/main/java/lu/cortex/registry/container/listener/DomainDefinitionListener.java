@@ -22,6 +22,7 @@ public class DomainDefinitionListener {
     public void install(final Event event) {
         final ObjectMapper mapper = new ObjectMapper();
         try {
+            System.out.println("receive: " + event);
             final DomainDefinition definition = mapper.readValue(event.getBody().getPaylodAsString(), DomainDefinition.class);
             serviceRegistry.installDomain(definition);
         }catch (final IOException exception) {

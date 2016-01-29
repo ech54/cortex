@@ -15,13 +15,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lu.cortex.async.DomainListener;
-import lu.cortex.configuration.DomainCommonConfiguration;
-import lu.cortex.configuration.DomainDefinitionManagerDefault;
+import lu.cortex.DomainCommonConfiguration;
+import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
+import lu.cortex.endpoints.EndpointPath;
 import lu.cortex.evt.model.Event;
 import lu.cortex.evt.model.EventBuilder;
 import lu.cortex.evt.model.EventType;
+import lu.cortex.registry.container.ContainerConfiguration;
+import lu.cortex.registry.container.RegistryDomain;
 
 @ContextConfiguration(classes = {CommunicationRedisTestCase.TestingConf.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -33,13 +35,16 @@ public class CommunicationRedisTestCase {
         StringRedisTemplate template;
 
         @Configuration
-        @Import(value = {DomainCommonConfiguration.class})
-        @ComponentScan(basePackageClasses = {
-                DomainDefinitionManagerDefault.class, DomainListener.class})
+        @Import(value = {DomainCommonConfiguration.class, ContainerConfiguration.class})
+        @ComponentScan(basePackageClasses = { RegistryDomain.class})
         public static class TestingConf {
 
             @Bean
             public String simpleString() { return "simple string injected"; }
+            @Bean(name="registry.install.endpoint")
+            public Endpoint registryInstallEndpoint() {
+                return new EndpointDefault("registry-domain", EndpointPath.buildPath("registry-domain", "domain-definition", "install"));
+            }
 
         }
 
@@ -48,7 +53,7 @@ public class CommunicationRedisTestCase {
             ObjectMapper mapper = new ObjectMapper();
             final Event event = EventBuilder
                     .from(new EndpointDefault("test", "test:junit"))
-                    .to("policy-services", "register")
+                    .to("policy", "register")
                     .withType(EventType.INFO)
                     .withPayload("'hello':'world'")
                     .build();

@@ -1,6 +1,7 @@
 
 package lu.cortex.configuration;
 
+import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -47,20 +48,20 @@ public class DomainDefinitionExporterTask extends Thread{
 
     protected void push() {
         System.out.println("DomainDefinitionExporterTask: push");
-        final DomainDefinition definition = manager.getDomainDefinition();
-        if (definition == null) {
+        final List<DomainDefinition> definitions = manager.getDomainDefinitions();
+        if (definitions == null || definitions.isEmpty()) {
             throw new RuntimeException("Domain definition is not resolved.");
         }
-
-        System.out.println("DomainDefinitionExporterTask: definition " + definition);
-
-        final Event event = EventBuilder
-                .from(definition.getLocation())
-                .to(getRegistryEndpoint())
-                .withPayload(convertToJson(definition))
-                .build();
-        System.out.println("DomainDefinitionExporterTask: send " + event);
-        getSender().send(event);
+        System.out.println("DomainDefinitionExporterTask: definition " + definitions);
+        definitions.stream().forEach(definition -> {
+            final Event event = EventBuilder
+                    .from(definition.getLocation())
+                    .to(getRegistryEndpoint())
+                    .withPayload(convertToJson(definition))
+                    .build();
+            System.out.println("DomainDefinitionExporterTask: send " + event);
+            getSender().send(event);
+        });
     }
 
     private String convertToJson(final DomainDefinition definition) {

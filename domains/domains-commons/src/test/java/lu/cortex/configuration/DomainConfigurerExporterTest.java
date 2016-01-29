@@ -37,7 +37,7 @@ public class DomainConfigurerExporterTest {
         public String simpleString() { return "simple string injected"; }
 
     }
-
+    /*
     @Test
     public void callAsyncProcess() {
         logger.info(">>>" + exporter.getDomain() );
@@ -79,7 +79,9 @@ public class DomainConfigurerExporterTest {
 
     @Test
     public void simple() {
-        logger.info(">>>" + exporter.getDomainDefinition());
-        exporter.getDomainDefinition().getServices().stream().forEach(System.out::println);
-    }
+        logger.info(">>>" + exporter.getDomainDefinitions());
+        exporter.getDomainDefinitions().stream().forEach(d -> {
+          d.getServices().stream().forEach(System.out::println);
+        });
+    }*/
 }

@@ -15,9 +15,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lu.cortex.configuration.DomainCommonConfiguration;
+import lu.cortex.annotation.DomainConfiguration;
+import lu.cortex.DomainCommonConfiguration;
 import lu.cortex.configuration.DomainDefinitionManagerDefault;
+import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
+import lu.cortex.endpoints.EndpointPath;
 import lu.cortex.evt.model.Event;
 import lu.cortex.evt.model.EventBuilder;
 import lu.cortex.evt.model.EventType;
@@ -39,7 +42,15 @@ public class CommunicationRedisTestCase {
 
             @Bean
             public String simpleString() { return "simple string injected"; }
+            @Bean(name="registry.install.endpoint")
+            public Endpoint registryInstallEndpoint() {
+                return new EndpointDefault("registry-domain", EndpointPath.buildPath("registry-domain", "domain-definition", "install"));
+            }
 
+            @DomainConfiguration(name="test", alias="test")
+            public class config{}
+
+            public class async {}
         }
 
         @Test
@@ -47,7 +58,7 @@ public class CommunicationRedisTestCase {
             ObjectMapper mapper = new ObjectMapper();
             final Event event = EventBuilder
                     .from(new EndpointDefault("test", "test:junit"))
-                    .to("policy-services", "register")
+                    .to("policy", "register")
                     .withType(EventType.INFO)
                     .withPayload("'hello':'world'")
                     .build();
@@ -76,5 +87,20 @@ public class CommunicationRedisTestCase {
         Thread.sleep(50 * 1000);
     }
 
+    @Test
+    public void launch() throws JsonProcessingException, InterruptedException {
+        ObjectMapper mapper = new ObjectMapper();
+        final Event event = EventBuilder
+                .from(new EndpointDefault("test", "test:junit"))
+                .to("registry-domain", "registry-domain:domain-definition:install")
+                .withType(EventType.INFO)
+                .withPayload("'hello':'world'")
+                .build();
+        //Object to JSON in String
+        String jsonInString = mapper.writeValueAsString(event);
+        System.out.println(jsonInString);
+        template.convertAndSend("registry-domain", jsonInString);
 
+        Thread.sleep(50 * 1000);
+    }
 }

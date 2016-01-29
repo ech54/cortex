@@ -4,6 +4,8 @@
  */
 package lu.cortex.configuration;
 
+import java.util.List;
+
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.spi.DomainDefinition;
 
@@ -11,5 +13,5 @@ public interface DomainDefinitionManager {
 
     Object executeAsyncProcess(final Endpoint endpoint, Object...args);
 
-    DomainDefinition getDomainDefinition();
+    List<DomainDefinition> getDomainDefinitions();
 }

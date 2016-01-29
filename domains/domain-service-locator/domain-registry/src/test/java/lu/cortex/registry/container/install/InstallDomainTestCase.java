@@ -7,10 +7,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import lu.cortex.configuration.DomainCommonConfiguration;
+import lu.cortex.DomainCommonConfiguration;
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
 import lu.cortex.endpoints.EndpointPath;
@@ -24,20 +25,25 @@ public class InstallDomainTestCase {
     @Autowired
     ServiceRegistry serviceRegistry;
 
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
+
+
     @Import(DomainCommonConfiguration.class)
     @Configuration
-    @ComponentScan(basePackageClasses = { Application.class})
+    @ComponentScan(basePackageClasses = { DomainCommonConfiguration.class, Application.class})
     static class TestingConf {
 
         @Bean(name="registry.install.endpoint")
         public Endpoint registryInstallEndpoint() {
-            return new EndpointDefault("registry-domain", EndpointPath.buildPath("registry-domain","domain-definition", "install"));
+            return new EndpointDefault("registry-domain", EndpointPath.buildPath("domain-definition", "install"));
         }
     }
     @Test
     public void install() throws Exception {
         System.out.println(">> " + serviceRegistry.isDomainExisting("simple-domain"));
 
+        stringRedisTemplate.convertAndSend("registry","hello");
         Thread.sleep(60 * 100000);
     }
 

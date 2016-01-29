@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
@@ -24,61 +25,46 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 /**
  * Component loads initially the domain at start-up. In using spring property,
  *  all business configurations (@see DomainConfiguration, AsyncProcessName, etc..)
  */
 @Component
+@Order(1)
 public class DomainDefinitionManagerDefault implements InitializingBean, BeanFactoryAware, DomainDefinitionManager {
 
     // Reference on the domain configuration.
     private Map<String, Object> domain = new ConcurrentHashMap<>();
 
-    private Map<String, MethodInvokingFactoryBean> processes = new ConcurrentHashMap<>();
+    private Map<String, Map<String, MethodInvokingFactoryBean>> processes = new ConcurrentHashMap<>();
 
-    protected List<ServiceSpi> services = new ArrayList<>();
+    protected Map<String, List<ServiceSpi>> services = new ConcurrentHashMap<>();
 
-    private Map<String, MethodInvokingFactoryBean> asyncProcesses = new ConcurrentHashMap<>();
+    private Map<String, Map<String, MethodInvokingFactoryBean>> asyncProcesses = new ConcurrentHashMap<>();
 
     private DomainDefinitionReader reader = new DomainDefinitionReader();
 
     private ListableBeanFactory beanFactory;
 
-    private Endpoint origin;
-
-    @Autowired
-    private DomainSender domainSender;
-
-    @Autowired
-    @Qualifier("registry.install.endpoint")
-    private Endpoint registryInstallEndpoint;
+    private Map<String, Endpoint> origins = new ConcurrentHashMap<>();
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        System.out.println("start domain definition manager");
         this.domain.putAll(this.beanFactory.getBeansWithAnnotation(DomainConfiguration.class));
-        final String domainName = getDomainName();
-        this.processes.putAll(this.reader.extractProcess(this.beanFactory.getBeansWithAnnotation(ProcessName.class), domainName));
-        this.asyncProcesses.putAll(this.reader.extractAsyncProcess(this.beanFactory.getBeansWithAnnotation(AsyncProcessName.class), domainName));
-        services.addAll(this.reader.extractServiceSpi(this.processes, this.asyncProcesses));
-        origin = new EndpointDefault(getAlias(), getDomainName());
-        exportDomainDefinition();
+
+        this.domain.entrySet().forEach(e -> {
+                final String domainName =  getAlias(e.getValue());
+                this.processes.put(domainName, this.reader.extractProcess(this.beanFactory.getBeansWithAnnotation(ProcessName.class), domainName));
+                this.asyncProcesses.put(domainName, this.reader.extractAsyncProcess(this.beanFactory.getBeansWithAnnotation(AsyncProcessName.class), domainName));
+                services.put(domainName, this.reader.extractServiceSpi(this.processes.get(domainName), this.asyncProcesses.get(domainName)));
+                origins.put(domainName, new EndpointDefault(getAlias(e.getValue()), domainName));
+            }
+        );
     }
 
-    protected void exportDomainDefinition() {
-        final ExecutorService pool = Executors.newFixedThreadPool(1);
-        Runtime.getRuntime().addShutdownHook(new Thread(){
-            @Override
-            public void run() {
-                if (pool != null) {
-                    pool.shutdown();
-                }
-            }
-        });
-        final DomainDefinitionExporterTask task = new DomainDefinitionExporterTask(getRegistryInstallEndpoint(), this, getDomainSender());
-        //Callable<?> runTask = () -> (task.run());
-        pool.submit(() -> task.run());
-    }
 
     public Object executeAsyncProcess(final Endpoint endpoint, Object...args) {
         Optional<MethodInvokingFactoryBean> optional = getAsyncProcesses(endpoint);
@@ -96,92 +82,67 @@ public class DomainDefinitionManagerDefault implements InitializingBean, BeanFac
         }
     }
 
-    public DomainDefinition getDomainDefinition() {
-        return new DomainDefinition() {
-            @Override
-            public String toString() {
-                final StringBuffer buffer = new StringBuffer("definition={");
-                buffer.append(" name:" + getName());
-                buffer.append(", location:"+ getLocation());
-                buffer.append("}");
-                return buffer.toString();
-            }
+    public List<DomainDefinition> getDomainDefinitions() {
+        final List<DomainDefinition> definitions = new ArrayList<>();
+        domain.entrySet().stream().forEach(e -> {
+            definitions.add(new DomainDefinition() {
+                @Override
+                public String toString() {
+                    final StringBuffer buffer = new StringBuffer("definition={");
+                    buffer.append(" name:" + getName());
+                    buffer.append(", location:"+ getLocation());
+                    buffer.append("}");
+                    return buffer.toString();
+                }
 
-            @Override
-            public String getName() {
-                return getDomainName();
-            }
+                @Override
+                public String getName() {
+                    return getAlias(e.getValue());
+                }
 
-            @Override
-            public Endpoint getLocation() {
-                return origin;
-            }
+                @Override
+                public Endpoint getLocation() {
+                    return origins.get(getAlias(e.getValue()));
+                }
 
-            @Override
-            public List<ServiceSpi> getServices() {
-                return services;
-            }
-        };
+                @Override
+                public List<ServiceSpi> getServices() {
+                    return services.get(getAlias(e.getValue()));
+                }
+            });
+        });
+        return definitions;
     }
 
     protected Optional<MethodInvokingFactoryBean> getAsyncProcesses(final Endpoint endpoint) {
-        if (getAsyncProcesses().containsKey(EndpointPath.toString(endpoint))) {
-            return Optional.of(getAsyncProcesses().get(EndpointPath.toString(endpoint)));
+        if (!getAsyncProcesses(endpoint.getSystemAlias()).isEmpty()) {
+            return Optional.of(getAsyncProcesses(endpoint.getSystemAlias()).get(EndpointPath.toString(endpoint)));
         }
         return Optional.empty();
-    }
-
-    public String getDomainName() {
-        if (domain.isEmpty()) {
-            throw new RuntimeException("No configured domain ...");
-        }
-        final Optional<Object> firstResult = domain.values().stream().findFirst();
-        if (!firstResult.isPresent()) {
-            throw new RuntimeException("No configured domain ...");
-        }
-        return getName(firstResult.get().getClass().getAnnotation(DomainConfiguration.class));
     }
 
     static protected String getName(final Annotation annotation) {
         return (String) AnnotationUtils.getAnnotationAttributes(annotation).get("name");
     }
 
-    protected String getAlias() {
-        if (domain.isEmpty()) {
-            throw new RuntimeException("No configured domain ...");
-        }
-        final Optional<Object> firstResult = domain.values().stream().findFirst();
-        if (!firstResult.isPresent()) {
-            throw new RuntimeException("No configured domain ...");
-        }
-        final Annotation annotation = firstResult.get().getClass().getAnnotation(DomainConfiguration.class);
+    public List<String> getAllAlias() {
+        return this.domain.values().stream().map(v -> getAlias(v)).collect(Collectors.toList());
+    }
+
+    protected String getAlias(final Object object) {
+        Objects.nonNull(object);
+        final Annotation annotation = object.getClass().getAnnotation(DomainConfiguration.class);
         return (String) AnnotationUtils.getAnnotationAttributes(annotation).get("alias");
     }
 
     public Map<String, Object> getDomain() {
         return this.domain;
     }
-    public Map<String, MethodInvokingFactoryBean> getProcesses() {
-        return this.processes;
+    public Map<String, MethodInvokingFactoryBean> getProcesses(final String name) {
+        return this.processes.get(name);
     }
-    public Map<String, MethodInvokingFactoryBean> getAsyncProcesses() {
-        return this.asyncProcesses;
-    }
-
-    public Endpoint getRegistryInstallEndpoint() {
-        return registryInstallEndpoint;
-    }
-
-    public void setRegistryInstallEndpoint(Endpoint registryInstallEndpoint) {
-        this.registryInstallEndpoint = registryInstallEndpoint;
-    }
-
-    public DomainSender getDomainSender() {
-        return domainSender;
-    }
-
-    public void setDomainSender(DomainSender domainSender) {
-        this.domainSender = domainSender;
+    public Map<String, MethodInvokingFactoryBean> getAsyncProcesses(final String name) {
+        return this.asyncProcesses.get(name);
     }
 
     @Override

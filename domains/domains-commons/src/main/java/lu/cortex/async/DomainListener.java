@@ -37,7 +37,7 @@ public class DomainListener {
             final Event event = mapper.readValue(message, EventDefault.class);
             Objects.nonNull(event);
             LOGGER.info("Translate to event: <" + event + ">");
-            domainDefinitionManagerDefault.executeAsyncProcess(event.getOrigin(), event);
+            domainDefinitionManagerDefault.executeAsyncProcess(event.getDestination(), event);
         } catch(final IOException exception) {
             throw new RuntimeException(exception);
         }

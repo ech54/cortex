@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import lu.cortex.annotation.DomainConfiguration;
 
 @DomainConfiguration(name="simple-domain",alias = "simple")
-@Component
+//@Component
 public class SimpleDomainConfiguration {
 
 }

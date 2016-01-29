@@ -13,9 +13,8 @@ import org.springframework.data.neo4j.server.RemoteServer;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
-import lu.cortex.configuration.DomainCommonConfiguration;
+import lu.cortex.DomainCommonConfiguration;
 
 @Import(DomainCommonConfiguration.class)
 @Configuration
