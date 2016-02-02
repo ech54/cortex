@@ -1,9 +1,10 @@
 package lu.cortex;
 
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -13,20 +14,22 @@ import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
-import lu.cortex.async.DomainListener;
+import lu.cortex.async.DomainListenerDefault;
 import lu.cortex.configuration.DomainDefinitionManagerDefault;
 
 @Configuration
 //@ComponentScan("lu.cortex")
 public class DomainCommonConfiguration {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DomainCommonConfiguration.class);
+
     @Autowired
     private DomainDefinitionManagerDefault domainConfigurationExporter;
 
     @Bean
-    @Order(2)
+    //@Order(2)
     public JedisConnectionFactory jedisConnectionFactory() {
-        System.out.println("start jedisConnectionFactory");
+        LOGGER.info("start jedisConnectionFactory");
         final JedisConnectionFactory factory = new JedisConnectionFactory();
         //factory.setHostName("172.17.0.2");
         factory.setDatabase(0);
@@ -35,17 +38,17 @@ public class DomainCommonConfiguration {
     }
 
     @Bean
-    @Order(2)
-    MessageListenerAdapter listenerAdapter(DomainListener listener) {
-        System.out.println("start listenerAdapter");
+    //@Order(2)
+    MessageListenerAdapter listenerAdapter(DomainListenerDefault listener) {
+        LOGGER.info("start listenerAdapter");
         return new MessageListenerAdapter(listener, "receiveMessage");
     }
 
     @Bean
-    @Order(2)
+    //@Order(2)
     RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
             MessageListenerAdapter listenerAdapter) {
-        System.out.println("start container");
+        LOGGER.info("start container");
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.addMessageListener(listenerAdapter,
@@ -56,9 +59,9 @@ public class DomainCommonConfiguration {
     }
 
     @Bean
-    @Order(2)
+    //@Order(2)
     public StringRedisTemplate redisTemplate() {
-        System.out.println("start redisTemplate");
+        LOGGER.info("start redisTemplate");
         StringRedisTemplate template = new StringRedisTemplate();
         template.setConnectionFactory(jedisConnectionFactory());
         return template;

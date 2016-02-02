@@ -14,9 +14,12 @@
 
   <modules>
     <module>domains-commons</module>
+    <module>domains-registry</module>
+
+    <module>user-domain</module>
     <module>policy-domain</module>
     <module>business-events-domain</module>
-    <module>domain-service-locator</module>
+    <module>investment-domain</module>
   </modules>
 
 </project>

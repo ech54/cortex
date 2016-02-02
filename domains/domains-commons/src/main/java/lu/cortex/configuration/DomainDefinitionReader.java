@@ -21,6 +21,7 @@ import lu.cortex.annotation.ProcessName;
 import lu.cortex.annotation.Reference;
 import lu.cortex.endpoints.EndpointPath;
 import lu.cortex.spi.ServiceSpi;
+import lu.cortex.spi.ServiceSpiDefault;
 
 public class DomainDefinitionReader {
 
@@ -46,18 +47,27 @@ public class DomainDefinitionReader {
         return results;
     }
 
-    public List<ServiceSpi> extractServiceSpi(final Map<String, MethodInvokingFactoryBean> syncs, final Map<String, MethodInvokingFactoryBean> asyncs) {
-        final Map<String, MethodInvokingFactoryBean> all = new HashMap<>();
-        all.putAll(syncs);
-        all.putAll(asyncs);
-        return extractServiceSpi(all);
+    public List<ServiceSpiDefault> extractServiceSpi(final Map<String, MethodInvokingFactoryBean> syncs, final Map<String, MethodInvokingFactoryBean> asyncs) {
+        //final Map<String, MethodInvokingFactoryBean> all = new HashMap<>();
+        final List<ServiceSpiDefault> result = new ArrayList<>();
+        result.addAll(extractServiceSpi(ProcessName.class ,syncs));
+        result.addAll(extractServiceSpi(AsyncProcessName.class ,asyncs));
+        return result;
     }
 
-    private List<ServiceSpi> extractServiceSpi(final Map<String, MethodInvokingFactoryBean> allConfiguration) {
-        final List<ServiceSpi> results = new ArrayList<>();
-        allConfiguration.values().stream()
-                .map(MethodInvokingFactoryBean::getTargetMethod)
-                .collect(Collectors.toList());
+    private List<ServiceSpiDefault> extractServiceSpi(Class<? extends Annotation> annotation, final Map<String, MethodInvokingFactoryBean> allConfiguration) {
+        final List<ServiceSpiDefault> results = new ArrayList<>();
+        results.addAll(allConfiguration.values().stream()
+                .map(mBean -> {
+                    try {
+                        final Annotation processAnnotation = mBean.getTargetObject().getClass().getAnnotation(annotation);
+                        final ServiceSpiDefault serviceSpi = new ServiceSpiDefault(getName(processAnnotation));
+                        serviceSpi.addReference(mBean.getTargetMethod());
+                        return serviceSpi;
+                    } catch (final Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }).collect(Collectors.toList()));
         return results;
     }
 

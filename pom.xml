@@ -28,12 +28,22 @@
   </developers>
 
   <properties>
+    <pmd.plugin.version>3.6</pmd.plugin.version>
+    <compiler.plugin.version>3.3</compiler.plugin.version>
+    <jdk.version>1.8</jdk.version>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <jpa.version>1.0.2</jpa.version>
+    <aspectj.version>1.7.4</aspectj.version>
     <junit.version>4.12</junit.version>
     <commons-lang3.version>3.3.2</commons-lang3.version>
     <jackson-core.version>2.5.1</jackson-core.version>
+    <redis.client.version>2.6.2</redis.client.version>
     <neo4j-ogm.version>1.1.3</neo4j-ogm.version>
     <neo4j.version>2.3.0-RC1</neo4j.version>
     <spring-redis.version>1.5.0.RELEASE</spring-redis.version>
+    <spring.integration.redis.version>4.1.6.RELEASE</spring.integration.redis.version>
     <spring-data-neo4j.version>4.0.0.RELEASE</spring-data-neo4j.version>
     <spring.version>4.2.2.RELEASE</spring.version>
     <slf4j.version>1.7.12</slf4j.version>
@@ -59,21 +69,38 @@
     </pluginRepository>
   </pluginRepositories>
 
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>${pmd.plugin.version}</version>
+        <configuration>
+          <linkXRef>false</linkXRef>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
+        <version>${compiler.plugin.version}</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring-boot.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>${pmd.plugin.version}</version>
       </plugin>
     </plugins>
 
@@ -118,6 +145,16 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
+        <groupId>lu.cortex</groupId>
+        <artifactId>user-domain</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>lu.cortex</groupId>
+        <artifactId>policy-domain</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
         <version>${spring-boot.version}</version>
@@ -141,6 +178,11 @@
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-redis</artifactId>
         <version>${spring-redis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.integration</groupId>
+        <artifactId>spring-integration-redis</artifactId>
+        <version>${spring.integration.redis.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
@@ -176,7 +218,7 @@
       <dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>aspjectjweaver</artifactId>
-        <version>1.7.4</version>
+        <version>${aspectj.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
@@ -197,6 +239,16 @@
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-neo4j</artifactId>
         <version>${spring-data-neo4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>${redis.client.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.persistence</groupId>
+        <artifactId>persistence-api</artifactId>
+        <version>${jpa.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.data</groupId>

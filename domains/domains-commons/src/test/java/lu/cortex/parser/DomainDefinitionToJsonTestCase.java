@@ -36,7 +36,7 @@ public class DomainDefinitionToJsonTestCase {
             }
 
             @Override
-            public List<ServiceSpi> getServices() {
+            public List<ServiceSpiDefault> getServices() {
                 return Arrays.asList(
                         new ServiceSpiDefault("customMethod"),
                         new ServiceSpiDefault("defaultMethod"));

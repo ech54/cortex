@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/bower_components/ui-select/dist/select.min.css"/>
+    <link rel="stylesheet" href="/bower_components/angularjs-slider/dist/rzslider.min.css"/>
+    <link rel="stylesheet" href="/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css"/>
+
+    <!-- Angular scripts -->
+    <script src="/bower_components/angular/angular.min.js"/>
+    <script src="/bower_components/angular-cookies/angular-cookies.min.js"/>
+    <script src="/bower_components/angular-translate/angular-translate.js"/>
+    <script src="/bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js"/>
+    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"/>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"/>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"/>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"/>
+
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/app.js"></script>
+    <script type="text/javascript" src="/controller.js"></script>
+
+    <style type="text/css">
+        .panel-height {
+            height: 400px;
+        }
+        .panel-heading{
+            height: 70px;
+        }
+        .panel-footer {
+            height: 70px;
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body ng-app="container">
+
+    <nav class="navbar navbar-default" ng-controller="AppController">
+        <div class="container-fluid">
+
+            <div class="navbar navbar-form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="search"/>
+                    <button type="submit" class="btn btn-default" ng-click="lookingForDomain()">search</button>
+                </div>
+            </div>
+            <div ng-repeat="domain in domains">
+                {{domain}}
+            </div>
+        </div>
+    </nav>
+
+</body>
+</html>

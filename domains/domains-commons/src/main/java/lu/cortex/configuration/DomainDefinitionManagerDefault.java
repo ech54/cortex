@@ -6,8 +6,12 @@ import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
 import lu.cortex.endpoints.EndpointPath;
 import lu.cortex.spi.DomainDefinition;
+import lu.cortex.spi.DomainDefinitionDefault;
 import lu.cortex.spi.ServiceSpi;
+import lu.cortex.spi.ServiceSpiDefault;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -35,12 +39,15 @@ import java.util.stream.Collectors;
 @Order(1)
 public class DomainDefinitionManagerDefault implements InitializingBean, BeanFactoryAware, DomainDefinitionManager {
 
+    // Reference on the applicative logger.
+    private static final Logger LOGGER = LoggerFactory.getLogger(DomainDefinitionManager.class);
+
     // Reference on the domain configuration.
     private Map<String, Object> domain = new ConcurrentHashMap<>();
 
     private Map<String, Map<String, MethodInvokingFactoryBean>> processes = new ConcurrentHashMap<>();
 
-    protected Map<String, List<ServiceSpi>> services = new ConcurrentHashMap<>();
+    protected Map<String, List<ServiceSpiDefault>> services = new ConcurrentHashMap<>();
 
     private Map<String, Map<String, MethodInvokingFactoryBean>> asyncProcesses = new ConcurrentHashMap<>();
 
@@ -52,8 +59,9 @@ public class DomainDefinitionManagerDefault implements InitializingBean, BeanFac
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("start domain definition manager");
-        this.domain.putAll(this.beanFactory.getBeansWithAnnotation(DomainConfiguration.class));
+        this.beanFactory.getBeansWithAnnotation(DomainConfiguration.class).entrySet().forEach(e -> {
+            this.domain.put(getAlias(e.getValue()), e.getValue());
+        });
 
         this.domain.entrySet().forEach(e -> {
                 final String domainName =  getAlias(e.getValue());
@@ -63,6 +71,7 @@ public class DomainDefinitionManagerDefault implements InitializingBean, BeanFac
                 origins.put(domainName, new EndpointDefault(getAlias(e.getValue()), domainName));
             }
         );
+        this.getDomainDefinitions().stream().forEach(d -> LOGGER.info("Find domain definition: " + d));
     }
 
 
@@ -85,31 +94,11 @@ public class DomainDefinitionManagerDefault implements InitializingBean, BeanFac
     public List<DomainDefinition> getDomainDefinitions() {
         final List<DomainDefinition> definitions = new ArrayList<>();
         domain.entrySet().stream().forEach(e -> {
-            definitions.add(new DomainDefinition() {
-                @Override
-                public String toString() {
-                    final StringBuffer buffer = new StringBuffer("definition={");
-                    buffer.append(" name:" + getName());
-                    buffer.append(", location:"+ getLocation());
-                    buffer.append("}");
-                    return buffer.toString();
-                }
-
-                @Override
-                public String getName() {
-                    return getAlias(e.getValue());
-                }
-
-                @Override
-                public Endpoint getLocation() {
-                    return origins.get(getAlias(e.getValue()));
-                }
-
-                @Override
-                public List<ServiceSpi> getServices() {
-                    return services.get(getAlias(e.getValue()));
-                }
-            });
+            final DomainDefinitionDefault definition = new DomainDefinitionDefault();
+            definition.setName(e.getKey());
+            definition.setLocation((EndpointDefault) origins.get(e.getKey()));
+            definition.setServices(services.get(e.getKey()));
+            definitions.add(definition);
         });
         return definitions;
     }

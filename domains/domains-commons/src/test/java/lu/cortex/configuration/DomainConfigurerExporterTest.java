@@ -1,9 +1,10 @@
 
 package lu.cortex.configuration;
 
-import lu.cortex.endpoints.EndpointDefault;
-import lu.cortex.evt.model.EventBuilder;
-import lu.cortex.evt.model.EventType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -15,6 +16,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import lu.cortex.async.DomainSender;
+import lu.cortex.endpoints.Endpoint;
+import lu.cortex.endpoints.EndpointDefault;
+import lu.cortex.evt.model.Event;
+
 /**
  * <class_description>
  */
@@ -22,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DomainConfigurerExporterTest {
 
-    private Logger logger = LoggerFactory.getLogger(DomainConfigurerExporterTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(DomainConfigurerExporterTest.class);
 
     @Autowired
     DomainDefinitionManagerDefault exporter;
@@ -36,52 +42,33 @@ public class DomainConfigurerExporterTest {
         @Bean
         public String simpleString() { return "simple string injected"; }
 
-    }
-    /*
-    @Test
-    public void callAsyncProcess() {
-        logger.info(">>>" + exporter.getDomain() );
-        logger.info(">>>" + exporter.getAsyncProcesses() );
-        exporter.getAsyncProcesses().entrySet().forEach(e -> {
-            logger.info("k: {}, v: {}",e.getKey(), e.getValue());
-            e.getValue().setArguments(new Object[]{
-                    EventBuilder
-                        .from(new EndpointDefault("test", "test:junit"))
-                        .to("mock", "mock:listener")
-                        .withType(EventType.INFO)
-                        .withPayload("'hello':'world'")
-                        .build()});
-            try {
-                e.getValue().prepare();
-                e.getValue().invoke();
-            }catch(final Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+        @Bean(name="registry.install.endpoint")
+        public Endpoint registryInstall() {
+            return new EndpointDefault("test","test");
+        }
+
+        @Bean
+        public DomainSender mockDomainSender() {
+            return new DomainSender() {
+                @Override
+                public void send(Event event) {
+                    logger.info("send event: " + event);
+                }
+
+                @Override
+                public void broadcast(Event event) {
+                }
+            };
+        }
     }
 
     @Test
-    public void callProcess() {
-        logger.info(">>>" + exporter.getDomain() );
-        logger.info(">>>" + exporter.getProcesses() );
-        exporter.getProcesses().entrySet().forEach(e -> {
-            logger.info("k: {}, v: {}",e.getKey(), e.getValue());
-            e.getValue().setArguments(new Object[]{"SimpleCriteria", "other"});
-            try {
-                e.getValue().prepare();
-                final Object result = e.getValue().invoke();
-                logger.info("result>>> " + result);
-            }catch(final Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
+    public void loadDomain() {
+        assertNotNull(exporter.getDomain());
+        assertEquals(exporter.getDomain().keySet()
+                .stream()
+                .filter(k -> StringUtils.equals(k, "policy"))
+                .count(), 1);
+        assertEquals(2, exporter.getAsyncProcesses("policy").size());
     }
-
-    @Test
-    public void simple() {
-        logger.info(">>>" + exporter.getDomainDefinitions());
-        exporter.getDomainDefinitions().stream().forEach(d -> {
-          d.getServices().stream().forEach(System.out::println);
-        });
-    }*/
 }

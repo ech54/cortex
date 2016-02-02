@@ -57,9 +57,9 @@ public class CreateWorkflowInstanceTest {
 
     @Test
     public void handleEvent() {
-        final Event create = EventBuilder.
-                to(new EndpointDefault("wf-engine", "policy:subscription"))
-                .from("test", "policy:subscription")
+        final Event create = EventBuilder
+                .from(new EndpointDefault("wf-engine", "policy:subscription"))
+                .to("test", "policy:subscription")
                 .withType(EventType.CREATE)
                 .build();
         //--

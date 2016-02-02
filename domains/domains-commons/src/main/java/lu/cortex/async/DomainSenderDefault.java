@@ -19,6 +19,13 @@ public class DomainSenderDefault implements DomainSender {
     @Autowired
     StringRedisTemplate template;
 
+    /**
+     * Default constructor.
+     */
+    public DomainSenderDefault() {
+        LOGGER.info("Load domain sender: (Thread: " + Thread.currentThread().getId() + ")");
+    }
+
     @Override
     public void send(final Event event) {
         try {

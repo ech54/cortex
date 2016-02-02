@@ -13,6 +13,13 @@ public class EventBodyDefault implements EventBody {
     public EventBodyDefault() {
     }
 
+    @Override
+    public String toString() {
+        final StringBuffer buffer = new StringBuffer("{body: '");
+        buffer.append(payload + "' }");
+        return buffer.toString();
+    }
+
     @JsonIgnore
     @Override
     public String getPaylodAsString() {

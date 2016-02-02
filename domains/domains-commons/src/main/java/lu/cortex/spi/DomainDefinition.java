@@ -27,5 +27,5 @@ public interface DomainDefinition {
      * Accessor in reading on the domain services.
      * @return The domain services.
      */
-    List<ServiceSpi> getServices();
+    List<ServiceSpiDefault> getServices();
 }

@@ -30,6 +30,14 @@ public class EndpointDefault implements Endpoint {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof  EndpointDefault)) {
+            return false;
+        }
+        return ((EndpointDefault)obj).getSystemAlias().equals(this.systemAlias);
+    }
+
+    @Override
     public String getSystemAlias() {
         return systemAlias;
     }

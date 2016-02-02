@@ -1,7 +1,10 @@
 
 package lu.cortex.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,53 +16,47 @@ import lu.cortex.spi.DomainDefinition;
 
 public class DomainDefinitionExporterTask extends Thread{
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DomainDefinitionExporterTask.class);
+
     private Endpoint registryEndpoint;
 
-    private DomainDefinitionManagerDefault manager;
+    private List<DomainDefinition> definitions = new ArrayList<>();
 
     private DomainSender sender;
 
     public DomainDefinitionExporterTask(
             final Endpoint registryEndpoint,
-            final DomainDefinitionManagerDefault manager,
+            final List<DomainDefinition> definitions,
             final DomainSender sender) {
         this.registryEndpoint = registryEndpoint;
-        this.manager = manager;
+        this.definitions.addAll(definitions);
         this.sender = sender;
     }
 
     @Override
     public void run() {
-        process();
-    }
-
-    public boolean process() {
         try {
-            System.out.println("process");
-            while (true) {
-                push();
-                System.out.println("end push");
-                Thread.sleep(120*1000);
-            }
-        } catch(final Exception exception) {
-            throw new RuntimeException(exception);
+            Thread.sleep(3 * 1000);
+            push();
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
+
     protected void push() {
-        System.out.println("DomainDefinitionExporterTask: push");
-        final List<DomainDefinition> definitions = manager.getDomainDefinitions();
+        LOGGER.info("Export configuration");
+        final List<DomainDefinition> definitions = this.definitions;
         if (definitions == null || definitions.isEmpty()) {
             throw new RuntimeException("Domain definition is not resolved.");
         }
-        System.out.println("DomainDefinitionExporterTask: definition " + definitions);
         definitions.stream().forEach(definition -> {
             final Event event = EventBuilder
                     .from(definition.getLocation())
                     .to(getRegistryEndpoint())
                     .withPayload(convertToJson(definition))
                     .build();
-            System.out.println("DomainDefinitionExporterTask: send " + event);
+            LOGGER.info("Configuration to export: " + event);
             getSender().send(event);
         });
     }
@@ -79,14 +76,6 @@ public class DomainDefinitionExporterTask extends Thread{
 
     public void setRegistryEndpoint(Endpoint registryEndpoint) {
         this.registryEndpoint = registryEndpoint;
-    }
-
-    public DomainDefinitionManagerDefault getManager() {
-        return manager;
-    }
-
-    public void setManager(final DomainDefinitionManagerDefault manager) {
-        this.manager = manager;
     }
 
     public DomainSender getSender() {

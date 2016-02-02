@@ -4,14 +4,20 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
  * Created by Emilien Charton on 10/01/16.
  */
+@JsonRootName("service-spi")
 public class ServiceSpiDefault implements ServiceSpi {
 
     private String name = StringUtils.EMPTY;
     private List<String> references = new ArrayList<>();
+
+    public  ServiceSpiDefault() {
+
+    }
 
     public ServiceSpiDefault(String name) {
         this.setName(name);
