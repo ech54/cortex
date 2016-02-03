@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import lu.cortex.async.DomainSender;
 import lu.cortex.endpoints.Endpoint;
-import lu.cortex.spi.DomainDefinition;
+import lu.cortex.model.DomainDefinition;
 
 @Component
 @Order(1000)

@@ -12,7 +12,7 @@ import lu.cortex.configuration.DomainDefinitionManagerDefault;
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.registry.container.service.ServiceRegistry;
 import lu.cortex.registry.container.service.ServiceRegistryDefault;
-import lu.cortex.spi.DomainDefinition;
+import lu.cortex.model.DomainDefinition;
 
 /**
  * <class_description>

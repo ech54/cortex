@@ -9,8 +9,8 @@ import lu.cortex.annotation.AsyncProcessName;
 import lu.cortex.annotation.OnMessage;
 import lu.cortex.evt.model.Event;
 import lu.cortex.registry.container.service.ServiceRegistry;
-import lu.cortex.spi.DomainDefinition;
-import lu.cortex.spi.DomainDefinitionDefault;
+import lu.cortex.model.DomainDefinition;
+import lu.cortex.model.DomainDefinitionDefault;
 
 @Component
 @AsyncProcessName(name = "domain-definition")

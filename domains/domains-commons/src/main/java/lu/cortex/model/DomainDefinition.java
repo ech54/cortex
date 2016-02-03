@@ -1,6 +1,7 @@
-package lu.cortex.spi;
+package lu.cortex.model;
 
 import lu.cortex.endpoints.Endpoint;
+import lu.cortex.spi.ServiceSpiDefault;
 
 import java.util.List;
 

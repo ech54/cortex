@@ -1,13 +1,11 @@
 package lu.cortex.configuration;
 
 import lu.cortex.annotation.*;
-import lu.cortex.async.DomainSender;
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
 import lu.cortex.endpoints.EndpointPath;
-import lu.cortex.spi.DomainDefinition;
-import lu.cortex.spi.DomainDefinitionDefault;
-import lu.cortex.spi.ServiceSpi;
+import lu.cortex.model.DomainDefinition;
+import lu.cortex.model.DomainDefinitionDefault;
 import lu.cortex.spi.ServiceSpiDefault;
 
 import org.slf4j.Logger;
@@ -17,8 +15,6 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
@@ -27,8 +23,6 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**

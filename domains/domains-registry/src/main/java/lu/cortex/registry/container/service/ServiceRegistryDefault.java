@@ -2,18 +2,15 @@ package lu.cortex.registry.container.service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
 import lu.cortex.registry.container.service.utils.LRUinMemoryCache;
-import lu.cortex.spi.DomainDefinition;
-import lu.cortex.spi.ServiceSpi;
+import lu.cortex.model.DomainDefinition;
 import lu.cortex.spi.ServiceSpiDefault;
 
 @Component

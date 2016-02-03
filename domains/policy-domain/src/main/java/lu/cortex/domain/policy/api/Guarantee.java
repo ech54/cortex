@@ -5,23 +5,23 @@ import java.util.List;
 import lu.cortex.model.Link;
 
 /**
- * Model designs an <code>Insurance Cover</code>
+ * Model designs an <code>Insurance Guarantee</code>
  *  describing the covered risks for which financial
  *  plan will be processed.
  */
-public interface Cover {
+public interface Guarantee {
     /**
-     * Accessor in reading on the covered risks
+     * Accessor in reading on the guarantee risks
      *  taken in charge by the cover.
      * @return The risks.
      */
-    List<Risk> getCoveredRisk();
+    List<Risk> getGuaranteeRisks();
 
     /**
-     * Accessor in writing on the covered risks
+     * Accessor in writing on the guarantee risks
      *  taken in charge by the cover.
      * @param risks The risks.
      */
-    void setCoveredRisk(final List<Risk> risks);
+    void setGuaranteeRisks(final List<Risk> risks);
 
 }

@@ -9,8 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
-import lu.cortex.spi.DomainDefinition;
-import lu.cortex.spi.ServiceSpi;
+import lu.cortex.model.DomainDefinition;
 import lu.cortex.spi.ServiceSpiDefault;
 
 public class DomainDefinitionToJsonTestCase {

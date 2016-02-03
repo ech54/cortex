@@ -7,7 +7,7 @@ package lu.cortex.configuration;
 import java.util.List;
 
 import lu.cortex.endpoints.Endpoint;
-import lu.cortex.spi.DomainDefinition;
+import lu.cortex.model.DomainDefinition;
 
 public interface DomainDefinitionManager {
 

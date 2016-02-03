@@ -1,18 +1,13 @@
-
-package lu.cortex.spi;
+package lu.cortex.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.databind.annotation.JsonTypeResolver;
 
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
+import lu.cortex.spi.ServiceSpiDefault;
 
-/**
- * <class_description>
- */
 @JsonRootName("domain-definition")
 public class DomainDefinitionDefault implements DomainDefinition {
 

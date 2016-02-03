@@ -3,9 +3,7 @@ package lu.cortex.registry.container.service;
 import java.util.List;
 import java.util.Optional;
 
-import lu.cortex.endpoints.Endpoint;
-import lu.cortex.spi.DomainDefinition;
-import lu.cortex.spi.ServiceSpi;
+import lu.cortex.model.DomainDefinition;
 import lu.cortex.spi.ServiceSpiDefault;
 
 /**

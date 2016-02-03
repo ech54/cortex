@@ -1,6 +1,12 @@
 package lu.cortex.domain.policy.model;
 
-import lu.cortex.domain.policy.api.Risk;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-public class RiskDefault implements Risk {
+import lu.cortex.domain.policy.api.Risk;
+import lu.cortex.model.AbstractDataModel;
+
+@Entity
+@Table(name = "RISK")
+public class RiskDefault  extends AbstractDataModel implements Risk {
 }

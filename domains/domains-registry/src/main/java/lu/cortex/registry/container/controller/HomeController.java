@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import lu.cortex.registry.container.service.ServiceRegistry;
-import lu.cortex.spi.DomainDefinition;
+import lu.cortex.model.DomainDefinition;
 
 @Controller
 public class HomeController {

@@ -3,18 +3,18 @@ package lu.cortex.domain.policy.api;
 import lu.cortex.model.DataModel;
 import lu.cortex.model.Link;
 
-public interface CoverSettings extends DataModel {
+public interface GuaranteeSettings extends DataModel {
     /**
-     * Accessor in reading on the cover.
+     * Accessor in reading on the guarantee.
      * @return The cover.
      */
-    Cover getCover();
+    Guarantee getGuarantee();
 
     /**
-     * Accessor in writing on the cover.
-     * @param cover The cover.
+     * Accessor in writing on the guarantee.
+     * @param guarantee The guarantee.
      */
-    void setCover(final Cover cover);
+    void setGuarantee(final Guarantee guarantee);
 
     /**
      * Accessor in reading on the financial plan

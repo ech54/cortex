@@ -12,7 +12,7 @@ import lu.cortex.async.DomainSender;
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.evt.model.Event;
 import lu.cortex.evt.model.EventBuilder;
-import lu.cortex.spi.DomainDefinition;
+import lu.cortex.model.DomainDefinition;
 
 public class DomainDefinitionExporterTask extends Thread{
 
