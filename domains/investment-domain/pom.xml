@@ -11,5 +11,10 @@
 
   <artifactId>investment-domain</artifactId>
 
-
+  <dependencies>
+    <dependency>
+      <groupId>lu.cortex</groupId>
+      <artifactId>domains-commons</artifactId>
+    </dependency>
+  </dependencies>
 </project>

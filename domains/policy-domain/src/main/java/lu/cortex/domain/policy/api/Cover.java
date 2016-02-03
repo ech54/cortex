@@ -2,6 +2,8 @@ package lu.cortex.domain.policy.api;
 
 import java.util.List;
 
+import lu.cortex.model.Link;
+
 /**
  * Model designs an <code>Insurance Cover</code>
  *  describing the covered risks for which financial
@@ -22,17 +24,4 @@ public interface Cover {
      */
     void setCoveredRisk(final List<Risk> risks);
 
-    /**
-     * Accessor in reading on the financial plan
-     *  which is processed as foreseen by cover.
-     * @return The financial plan.
-     */
-    FinancialPlan getFinancialPlan();
-
-    /**
-     * Accessor in writing on the financial plan
-     *  which is processed as foreseen by cover.
-     * @param plan The financial plan.
-     */
-    void setFinancialPlan(final FinancialPlan plan);
 }
