@@ -1,7 +1,3 @@
-/**
- * Project: ESENTOOL
- * Contractor: ARHS-Developments
- */
 package lu.cortex.configuration;
 
 import java.lang.annotation.Annotation;
@@ -48,7 +44,6 @@ public class DomainDefinitionReader {
     }
 
     public List<ServiceSpiDefault> extractServiceSpi(final Map<String, MethodInvokingFactoryBean> syncs, final Map<String, MethodInvokingFactoryBean> asyncs) {
-        //final Map<String, MethodInvokingFactoryBean> all = new HashMap<>();
         final List<ServiceSpiDefault> result = new ArrayList<>();
         result.addAll(extractServiceSpi(ProcessName.class ,syncs));
         result.addAll(extractServiceSpi(AsyncProcessName.class ,asyncs));

@@ -4,9 +4,9 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -14,11 +14,11 @@ import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 
-import lu.cortex.async.DomainListenerDefault;
+import lu.cortex.async.AsynchronousDomainListener;
 import lu.cortex.configuration.DomainDefinitionManagerDefault;
+import lu.cortex.sync.SynchronousDomainListener;
 
 @Configuration
-//@ComponentScan("lu.cortex")
 public class DomainCommonConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DomainCommonConfiguration.class);
@@ -27,7 +27,6 @@ public class DomainCommonConfiguration {
     private DomainDefinitionManagerDefault domainConfigurationExporter;
 
     @Bean
-    //@Order(2)
     public JedisConnectionFactory jedisConnectionFactory() {
         LOGGER.info("start jedisConnectionFactory");
         final JedisConnectionFactory factory = new JedisConnectionFactory();
@@ -38,28 +37,37 @@ public class DomainCommonConfiguration {
     }
 
     @Bean
-    //@Order(2)
-    MessageListenerAdapter listenerAdapter(DomainListenerDefault listener) {
-        LOGGER.info("start listenerAdapter");
+    MessageListenerAdapter listenerForAsynchronousProcess(AsynchronousDomainListener listener) {
         return new MessageListenerAdapter(listener, "receiveMessage");
     }
 
     @Bean
-    //@Order(2)
+    MessageListenerAdapter listenerForSynchronousProcess(SynchronousDomainListener listener) {
+        return new MessageListenerAdapter(listener, "receiveMessage");
+    }
+
+    @Bean
     RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
-            MessageListenerAdapter listenerAdapter) {
+            @Qualifier("listenerForAsynchronousProcess") MessageListenerAdapter asynchronous,
+            @Qualifier("listenerForSynchronousProcess") MessageListenerAdapter synchronous) {
         LOGGER.info("start container");
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.addMessageListener(listenerAdapter,
-                domainConfigurationExporter.getAllAlias()
+        final StringBuilder buffer = new StringBuilder();
+        domainConfigurationExporter.getQueueNames().stream().forEach(a -> buffer.append("alias:" + a + " "));
+        LOGGER.info("alias from exporter: " + buffer.toString());
+        container.addMessageListener(asynchronous,
+                domainConfigurationExporter.getAsyncQueue()
+                        .stream().map(a -> new PatternTopic(a))
+                        .collect(Collectors.toList()));
+        container.addMessageListener(synchronous,
+                domainConfigurationExporter.getSyncQueue()
                         .stream().map(a -> new PatternTopic(a))
                         .collect(Collectors.toList()));
         return container;
     }
 
     @Bean
-    //@Order(2)
     public StringRedisTemplate redisTemplate() {
         LOGGER.info("start redisTemplate");
         StringRedisTemplate template = new StringRedisTemplate();

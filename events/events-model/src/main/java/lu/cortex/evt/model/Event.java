@@ -18,6 +18,13 @@ public interface Event {
     Endpoint getDestination();
 
     /**
+     * Provide the current session.
+     * @return The session object.
+     */
+    Session getSession();
+
+
+    /**
      * Provide the event body which contains
      *  business part to deliver.
      * @return the body.

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lu.cortex.async.DomainSender;
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointPath;
 import lu.cortex.evt.model.Event;
@@ -29,7 +30,7 @@ public class EngineService {
     @Autowired
     ProcessStepDefinitionRepository processStepDefinitionRepository;
     @Autowired
-    EventsSender eventsSender;
+    DomainSender eventsSender;
     @Autowired
     ObjectMapper objectMapper;
 
@@ -42,7 +43,7 @@ public class EngineService {
         final String process = EndpointPath.getProcess(event.getOrigin().getPath());
         final List<ProcessStepDefinition> definitions = processStepDefinitionRepository.findByProcess(domain, process);
         if (definitions == null || definitions.isEmpty()) {
-            eventsSender.sendEvent(EventBuilder
+            eventsSender.send(EventBuilder
                     .from(application).withType(EventType.INFO)
                     .to(event.getDestination().getSystemAlias(), event.getDestination().getPath())
                     .withPayload(String.format("{'msg': 'process definition not existing.'}"))
@@ -53,7 +54,7 @@ public class EngineService {
         final String ref = step.getDomain() + EndpointPath.SEPARATOR +
                 step.getProcessName() + EndpointPath.SEPARATOR +
                 step.getProcessId();
-        eventsSender.sendEvent(EventBuilder
+        eventsSender.send(EventBuilder
                 .from(application).withType(EventType.UPDATE)
                 .to(event.getDestination().getSystemAlias(), event.getDestination().getPath())
                 .withPayload(String.format("{'ref': %s}", ref))
@@ -76,7 +77,7 @@ public class EngineService {
         final StepStatus status = extractStatus(event);
         final ProcessStep current = processStepRepository.findUniqueStep(domain, process, ref);
         updateWithStatus(current, status);
-        eventsSender.sendEvent(EventBuilder
+        eventsSender.send(EventBuilder
                 .from(application).withType(EventType.UPDATE)
                 .to(event.getDestination().getSystemAlias(), event.getDestination().getPath())
                 .withPayload(toJson(current))

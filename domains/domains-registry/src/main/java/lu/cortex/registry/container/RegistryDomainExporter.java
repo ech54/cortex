@@ -14,9 +14,6 @@ import lu.cortex.registry.container.service.ServiceRegistry;
 import lu.cortex.registry.container.service.ServiceRegistryDefault;
 import lu.cortex.model.DomainDefinition;
 
-/**
- * <class_description>
- **/
 @Component
 @Order(2)
 public class RegistryDomainExporter  implements InitializingBean {

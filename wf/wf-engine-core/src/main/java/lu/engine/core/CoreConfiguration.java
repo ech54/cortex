@@ -15,14 +15,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import lu.cortex.DomainCommonConfiguration;
+import lu.cortex.endpoints.Endpoint;
+import lu.cortex.endpoints.EndpointDefault;
+import lu.cortex.endpoints.EndpointPath;
 
-@Import(DomainCommonConfiguration.class)
 @Configuration
-@ComponentScan({"lu.engine.core"})
+@Import(value = {DomainCommonConfiguration.class})
+@ComponentScan({"lu.cortex","lu.engine"})
 @EnableTransactionManagement
 @EnableNeo4jRepositories("lu.engine.core.repository")
 public class CoreConfiguration extends Neo4jConfiguration {
 
+    @Bean(name="registry.install.endpoint")
+    public Endpoint registryInstallEndpoint() {
+        return new EndpointDefault("registry-domain", EndpointPath.buildPath("domain-definition", "install"));
+    }
     @Bean
     public ObjectMapper jsonMapper() {
         final ObjectMapper mapper = new ObjectMapper();

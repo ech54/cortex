@@ -37,7 +37,7 @@ public class CommunicationRedisTestCase {
         @Configuration
         @Import(value = {DomainCommonConfiguration.class})
         @ComponentScan(basePackageClasses = {
-                DomainDefinitionManagerDefault.class, DomainListenerDefault.class})
+                DomainDefinitionManagerDefault.class, AsynchronousDomainListener.class})
         public static class TestingConf {
 
             @Bean

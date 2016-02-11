@@ -22,8 +22,8 @@ public class WfConfigurationListener {
     @Autowired
     private EngineService engineService;
 
-    @OnMessage(name="create")
-    public void receiveEvent(final Event event) {
+    @OnMessage
+    public void create(final Event event) {
         logger.info("received new event= " + event);
         engineService.createProcess(event);
     }

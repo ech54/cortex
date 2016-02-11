@@ -18,8 +18,8 @@ public class WfExecutionListener {
     @Autowired
     private EngineService engineService;
 
-    @OnMessage(name="update")
-    public void receiveEvent(final Event event) {
+    @OnMessage
+    public void update(final Event event) {
         logger.info("received new event= " + event);
         engineService.updateProcessStep(event);
     }

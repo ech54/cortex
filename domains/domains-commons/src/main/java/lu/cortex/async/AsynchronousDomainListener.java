@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lu.cortex.configuration.DomainDefinitionManagerDefault;
 import lu.cortex.evt.model.Event;
+import lu.cortex.evt.model.EventBuilder;
 import lu.cortex.evt.model.EventDefault;
 
 /**
@@ -17,9 +18,9 @@ import lu.cortex.evt.model.EventDefault;
  * Then routing message is applied on each event to dedicated business process.
  */
 @Component
-public class DomainListenerDefault {
+public class AsynchronousDomainListener {
     // Default applicative logger.
-    private static final Logger LOGGER = LoggerFactory.getLogger(DomainListenerDefault.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AsynchronousDomainListener.class);
 
     @Autowired
     private DomainDefinitionManagerDefault domainDefinitionManagerDefault;
@@ -31,15 +32,10 @@ public class DomainListenerDefault {
      **/
     public void receiveMessage(final String message) {
         LOGGER.info("Receive message : <" + message + ">");
-        try {
-            Objects.nonNull(message);
-            final ObjectMapper mapper = new ObjectMapper();
-            final Event event = mapper.readValue(message, EventDefault.class);
-            Objects.nonNull(event);
-            LOGGER.info("Translate to event: <" + event + ">");
-            domainDefinitionManagerDefault.executeAsyncProcess(event.getDestination(), event);
-        } catch (final IOException exception) {
-            throw new RuntimeException(exception);
-        }
+        Objects.nonNull(message);
+        final Event event = EventBuilder.fromJson(message);
+        Objects.nonNull(event);
+        LOGGER.info("Translate to event: <" + event + ">");
+        domainDefinitionManagerDefault.executeAsyncProcess(event.getDestination(), event);
     }
 }

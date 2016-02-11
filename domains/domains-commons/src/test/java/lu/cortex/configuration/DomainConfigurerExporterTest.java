@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import lu.cortex.async.DomainSender;
 import lu.cortex.endpoints.Endpoint;
 import lu.cortex.endpoints.EndpointDefault;
+import lu.cortex.endpoints.EndpointPath;
 import lu.cortex.evt.model.Event;
 
 /**
@@ -43,8 +44,9 @@ public class DomainConfigurerExporterTest {
         public String simpleString() { return "simple string injected"; }
 
         @Bean(name="registry.install.endpoint")
-        public Endpoint registryInstall() {
-            return new EndpointDefault("test","test");
+        //public Endpoint registryInstall() {return new EndpointDefault("test","test");}
+        public Endpoint registryInstallEndpoint() {
+            return new EndpointDefault("registry-domain", EndpointPath.buildPath("domain-definition", "install"));
         }
 
         @Bean
@@ -63,12 +65,14 @@ public class DomainConfigurerExporterTest {
     }
 
     @Test
-    public void loadDomain() {
+    public void loadDomain() throws Exception {
         assertNotNull(exporter.getDomain());
         assertEquals(exporter.getDomain().keySet()
                 .stream()
                 .filter(k -> StringUtils.equals(k, "policy"))
                 .count(), 1);
         assertEquals(2, exporter.getAsyncProcesses("policy").size());
+
+        Thread.sleep(10*1000);
     }
 }

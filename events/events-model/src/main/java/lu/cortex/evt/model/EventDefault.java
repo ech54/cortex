@@ -13,6 +13,8 @@ public class EventDefault implements Event {
     @JsonProperty
     EndpointDefault from;
     @JsonProperty
+    SessionDefault session = new SessionDefault();
+    @JsonProperty
     EventBodyDefault body;
 
     public EventDefault() {}
@@ -43,6 +45,11 @@ public class EventDefault implements Event {
     public void setDestination(EndpointDefault to) {
         this.to = (EndpointDefault) to;
     }
+
+    @Override
+    public SessionDefault getSession() { return session; }
+
+    public void setSession(SessionDefault session) { this.session = session; }
 
     @Override
     public EventBodyDefault getBody() {
